@@ -1,4 +1,4 @@
-default_wallpaper = "D:/simpleTextEditor/images/default_wallpaper.jpg"
+default_wallpaper = "images/default_wallpaper.jpg"
 default_font = "MS Shell Dlg 2"
 default_folder = "text_documents"
 default_font_size = "11pt"
