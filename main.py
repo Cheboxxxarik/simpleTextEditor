@@ -80,13 +80,15 @@ class Window(QMainWindow):
                     error.setText('Пожалуйста, назовите Ваш текстовый документ')
                     error.setIcon(QMessageBox.Warning)
                     error.exec_()
-            except FileExistsError:
+            except FileExistsError and OSError:
                 file_name = self.text_title.text()
                 text = self.text_editor.toPlainText()
                 with open(file_name, 'w', encoding='utf-8') as file:
                     file.write(text)
         elif action == 'Сохранить как':
-            file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', f'{config.default_folder}/{self.text_title.text()}', 'Текстовые файлы (*.txt)')[0]
+            file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
+                                                    f'{config.default_folder}/{self.text_title.text()}', 
+                                                    'Текстовые файлы (*.txt)')[0]
             text = self.text_editor.toPlainText()
 
             try:
