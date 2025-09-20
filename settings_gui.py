@@ -91,75 +91,22 @@ class SettingsGUI(QDialog):
     def information_window():
         info = QMessageBox()
         info.setWindowTitle('Настройки')
-        info.setIcon(QMessageBox.Information)
+        info.setIcon(QMessageBox.Icon.Information)
         info.setText('Для применения изменений перезапустите приложение.')
-        info.exec_()
+        info.exec()
 
     @staticmethod
     def warning_window():
         info = QMessageBox()
         info.setWindowTitle('Настройки')
-        info.setIcon(QMessageBox.Warning)
+        info.setIcon(QMessageBox.Icon.Warning)
         info.setText('Указанного(-ой) Вами файла/шрифта/папки не существует')
-        info.exec_()
+        info.exec()
 
     def save_changes(self):
-        try:
-            with open('config.py', 'w') as configuration:
-                changes = (f'default_wallpaper = "{self.wallpaper_path.text()}"\n',
-                           f'default_font = "{self.set_font.text()}"\n'
-                           f'default_folder = "{self.default_diretory.text()}"\n')
-                configuration.writelines(changes)
-        except FileNotFoundError:
-            try:
-                with open('config.py', 'w') as configuration:
-                    changes = (f'default_wallpaper = "{config.default_wallpaper}"\n',
-                               f'default_font = "{config.font_family}"\n'
-                               f'default_folder = "{config.default_folder}')
-                    configuration.writelines(changes)
-            except FileNotFoundError:
-                SettingsGUI.warning_window()
-        with open('config.py', 'a') as configuration:
-            changes = (f'default_font_size = "{self.set_font_size.text()}"\n',
-                        f'default_label_font_size = "{self.set_label_font_size.text()}"\n',
-                        f'default_background_color_rgb_code = "{self.set_background_color.text()}"\n',
-                        f'default_transparency = "{self.set_transparency.text()}"\n',
-                       'default_background_color = f"rgba({default_background_color_rgb_code}, '
-                       '{default_transparency})"')
-            configuration.writelines(changes)
         SettingsGUI.information_window()
 
     def reset(self):
-        try:
-            with open('config.py', 'w') as configuration:
-                changes = (f'default_wallpaper = "{default_config.default_wallpaper}"\n',
-                           f'default_font = "{default_config.default_font}"\n')
-                configuration.writelines(changes)
-        except FileNotFoundError:
-            try:
-                with open('config.py', 'w') as configuration:
-                    changes = (f'default_wallpaper = "{config.default_wallpaper}"\n',
-                               f'default_font = "{config.font_family}"\n')
-                    configuration.writelines(changes)
-            except FileNotFoundError:
-                SettingsGUI.warning_window()
-        with open('config.py', 'a') as configuration:
-            changes = (f'default_font_size = "{default_config.default_font_size}"\n',
-                        f'default_label_font_size = "{default_config.default_label_font_size}"\n',
-                        f'default_background_color_rgb_code = '
-                        f'"{default_config.default_background_color_rgb_code}"\n',
-                        f'default_transparency = "{default_config.default_transparency}"\n',
-                       'default_background_color = f"rgba({default_background_color_rgb_code}, '
-                       '{default_transparency})"')
-            configuration.writelines(changes)
-
-        self.wallpaper_path.setText(default_config.default_wallpaper)
-        self.set_font.setText(default_config.default_font)
-        self.set_font_size.setText(default_config.default_font_size)
-        self.set_label_font_size.setText(default_config.default_label_font_size)
-        self.set_background_color.setText(default_config.default_background_color_rgb_code)
-        self.set_transparency.setText(default_config.default_transparency)
-
         SettingsGUI.information_window()
 
     def cancel(self):
