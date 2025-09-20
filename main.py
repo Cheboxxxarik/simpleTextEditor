@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar, 
                              QMenu, QVBoxLayout, QHBoxLayout)
-import config, functionality
+import config_stylesheet, functionality
 
 
 class Window(QMainWindow):
@@ -23,17 +23,18 @@ class Window(QMainWindow):
         self.text_title = QtWidgets.QLineEdit(self)
         self.text_title.setText('.txt')
         self.text_title.setCursorPosition(0)
-        self.text_title.setStyleSheet(config.default_label_stylesheet)
+        self.text_title.setStyleSheet(config_stylesheet.line_editor_stylesheet)
         self.text_title.setMinimumHeight(50)
         # Поле для ввода текста
         self.text_editor = QtWidgets.QTextEdit(self)
         self.text_editor.setAutoFillBackground(False)
-        self.text_editor.setStyleSheet(config.default_stylesheet)
+        self.text_editor.setStyleSheet(config_stylesheet.text_editor_stylesheet)
         # Кнопка для сохранения текста
         self.save_button = QtWidgets.QPushButton(self)
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
         self.save_button.clicked.connect(lambda: functionality.save_file(self))
+        self.save_button.setStyleSheet(config_stylesheet.button_stylesheet)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
         self.text_layout.addWidget(self.text_editor) 
