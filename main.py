@@ -1,6 +1,7 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar, 
                              QMenu, QVBoxLayout, QHBoxLayout)
+from PyQt6.QtGui import QIcon
 import config_stylesheet, functionality
 
 
@@ -12,6 +13,8 @@ class Window(QMainWindow):
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
+        # Добавление иконки приложения
+        self.setWindowIcon(QIcon('simpleTextEditor.png'))
         # Создание основного слоя
         self.main_layout = QVBoxLayout(central_widget)
         self.main_layout.setSpacing(15)

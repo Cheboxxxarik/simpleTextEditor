@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, QHBoxLayout, QGridLayout, QMessageBox)
+from PyQt6.QtGui import QIcon
 import config, config_stylesheet, default_config
 
 
@@ -8,6 +9,8 @@ class SettingsGUI(QDialog):
         super(SettingsGUI, self).__init__()
         # self.resize(800, 600)
         self.setWindowTitle('Настройки')
+        # Добавление иконки приложения
+        self.setWindowIcon(QIcon('simpleTextEditor.png'))
         self.main_layout = QVBoxLayout(self)
         self.grid_layout = QGridLayout()
         self.main_layout.addLayout(self.grid_layout)
