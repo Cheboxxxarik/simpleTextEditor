@@ -76,12 +76,6 @@ class SettingsGUI(QDialog):
         self.button_layout.addWidget(self.reset_settings)
         self.button_layout.addWidget(self.cancel_changes)
 
-    def select_image(self):
-        file_name = QFileDialog.getOpenFileName(self, 'Выбрать изображение', 'images',
-                                                'Изображения (*jpg *jpeg *png)')[0]
-        if file_name != '':
-            self.wallpaper_path.setText(file_name)
-
     def select_folder(self):
         folder_name = QFileDialog.getExistingDirectory(self)
         if folder_name != '':
