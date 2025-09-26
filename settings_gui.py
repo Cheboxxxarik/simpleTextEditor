@@ -15,13 +15,20 @@ class SettingsGUI(QDialog):
         self.grid_layout = QGridLayout()
         self.main_layout.addLayout(self.grid_layout)
         # Выбор семейства шрифтов
-        self.set_font_family = QtWidgets.QLabel(self)
-        self.set_font_family.setText('Шрифт:')
-        self.set_font_family.setStyleSheet(config_stylesheet.label_stylesheet)
+        self.font_family_settings = QtWidgets.QLabel(self)
+        self.font_family_settings.setText('Шрифт:')
+        self.font_family_settings.setStyleSheet(config_stylesheet.label_stylesheet)
         self.select_font_family = QtWidgets.QLineEdit(self)
         self.select_font_family.setText(config.font_family)
         self.select_font_family.setStyleSheet(config_stylesheet.settings_line_editor_stylesheet)
-        # Выбор шрифта заголовка
+        # Выбор размера шрифта
+        self.font_size_settings = QtWidgets.QLabel(self)
+        self.font_size_settings.setText('Размер шрифта обычного текста:')
+        self.font_size_settings.setStyleSheet(config_stylesheet.label_stylesheet)
+        self.set_font_size = QtWidgets.QLineEdit(self)
+        self.set_font_size.setText(config.font_size)
+        self.set_font_size.setStyleSheet(config_stylesheet.settings_line_editor_stylesheet)
+        # Выбор размера шрифта заголовка
         self.label_font_size_settings = QtWidgets.QLabel(self)
         self.label_font_size_settings.setText('Размер шрифта заголовка:')
         self.label_font_size_settings.setStyleSheet(config_stylesheet.label_stylesheet)
@@ -69,17 +76,19 @@ class SettingsGUI(QDialog):
         self.cancel_changes.clicked.connect(self.cancel)
         self.cancel_changes.setStyleSheet(config_stylesheet.button_stylesheet)
 
-        self.grid_layout.addWidget(self.set_font_family, 0, 0)
+        self.grid_layout.addWidget(self.font_family_settings, 0, 0)
         self.grid_layout.addWidget(self.select_font_family, 0, 1)
-        self.grid_layout.addWidget(self.label_font_size_settings, 1, 0)
-        self.grid_layout.addWidget(self.set_label_font_size, 1, 1)
-        self.grid_layout.addWidget(self.background_color_settings, 2, 0)
-        self.grid_layout.addWidget(self.set_background_color, 2, 1)
-        self.grid_layout.addWidget(self.default_folder_settings, 3, 0)
-        self.grid_layout.addWidget(self.default_diretory, 3, 1)
-        self.grid_layout.addWidget(self.select_default_folder, 3, 2)
-        self.grid_layout.addWidget(self.accent_color, 4, 0)
-        self.grid_layout.addWidget(self.choose_accent_color, 4, 1)
+        self.grid_layout.addWidget(self.font_size_settings, 1, 0)
+        self.grid_layout.addWidget(self.set_font_size, 1, 1)
+        self.grid_layout.addWidget(self.label_font_size_settings, 2, 0)
+        self.grid_layout.addWidget(self.set_label_font_size, 2, 1)
+        self.grid_layout.addWidget(self.background_color_settings, 3, 0)
+        self.grid_layout.addWidget(self.set_background_color, 3, 1)
+        self.grid_layout.addWidget(self.default_folder_settings, 4, 0)
+        self.grid_layout.addWidget(self.default_diretory, 4, 1)
+        self.grid_layout.addWidget(self.select_default_folder, 4, 2)
+        self.grid_layout.addWidget(self.accent_color, 5, 0)
+        self.grid_layout.addWidget(self.choose_accent_color, 5, 1)
 
         self.button_layout = QHBoxLayout()
         self.main_layout.addLayout(self.button_layout)
@@ -110,6 +119,16 @@ class SettingsGUI(QDialog):
         info.exec()
 
     def save_changes(self):
+        new_font_family = self.select_font_family.text()
+        new_label_font_size = self.set_label_font_size.text()
+        # new_font_size
+        new_background_color = self.set_background_color.text()
+        new_default_directory = self.default_diretory.text()
+        new_accent_color = self.choose_accent_color.text()
+
+        with open(config.py, 'w') as config:
+            config.writelines('')
+
         SettingsGUI.information_window()
 
     def reset(self):
