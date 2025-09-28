@@ -46,19 +46,19 @@ class SettingsGUI(QDialog):
         self.default_folder_settings = QtWidgets.QLabel(self)
         self.default_folder_settings.setText('Папка по умолчанию:')
         self.default_folder_settings.setStyleSheet(config_stylesheet.label_stylesheet)
-        self.default_diretory = QtWidgets.QLabel(self)
+        self.default_diretory = QtWidgets.QLineEdit(self)
         self.default_diretory.setText(config.default_folder)
-        self.default_diretory.setStyleSheet(config_stylesheet.label_stylesheet)
+        self.default_diretory.setStyleSheet(config_stylesheet.settings_line_editor_stylesheet)
         self.select_default_folder = QtWidgets.QPushButton(self)
         self.select_default_folder.setText('Выбрать')
         self.select_default_folder.clicked.connect(self.select_folder)
         self.select_default_folder.setStyleSheet(config_stylesheet.button_stylesheet)
         # Настройки акцентного цвета
-        self.accent_color = QtWidgets.QLabel(self)
-        self.accent_color.setText('Акцентный цвет:')
-        self.accent_color.setStyleSheet(config_stylesheet.label_stylesheet)
+        self.accent_colour = QtWidgets.QLabel(self)
+        self.accent_colour.setText('Акцентный цвет:')
+        self.accent_colour.setStyleSheet(config_stylesheet.label_stylesheet)
         self.choose_accent_color = QtWidgets.QLineEdit(self)
-        self.choose_accent_color.setText(config.accent_colour)
+        self.choose_accent_color.setText(config.accent_color)
         self.choose_accent_color.setStyleSheet(config_stylesheet.settings_line_editor_stylesheet)
         # Кнопка сохранения настроек
         self.save_settings = QtWidgets.QPushButton(self)
@@ -87,7 +87,7 @@ class SettingsGUI(QDialog):
         self.grid_layout.addWidget(self.default_folder_settings, 4, 0)
         self.grid_layout.addWidget(self.default_diretory, 4, 1)
         self.grid_layout.addWidget(self.select_default_folder, 4, 2)
-        self.grid_layout.addWidget(self.accent_color, 5, 0)
+        self.grid_layout.addWidget(self.accent_colour, 5, 0)
         self.grid_layout.addWidget(self.choose_accent_color, 5, 1)
 
         self.button_layout = QHBoxLayout()
@@ -111,28 +111,46 @@ class SettingsGUI(QDialog):
         info.exec()
 
     @staticmethod
-    def warning_window():
+    def warning_window(e):
         info = QMessageBox()
         info.setWindowTitle('Настройки')
         info.setIcon(QMessageBox.Icon.Warning)
-        info.setText('Указанного(-ой) Вами файла/шрифта/папки не существует')
+        info.setText(f'Ошибка: {e}')
         info.exec()
 
     def save_changes(self):
-        new_font_family = self.select_font_family.text()
-        new_label_font_size = self.set_label_font_size.text()
-        # new_font_size
-        new_background_color = self.set_background_color.text()
         new_default_directory = self.default_diretory.text()
+        new_font_family = self.select_font_family.text()
+        new_font_size = self.set_font_size.text()
+        new_label_font_size = self.set_label_font_size.text()
+        new_background_color = self.set_background_color.text()
+        new_border_color = "58, 94, 214, 0.4"
         new_accent_color = self.choose_accent_color.text()
 
-        with open(config.py, 'w') as config:
-            config.writelines('')
+        changes_list = [f"default_folder = '{new_default_directory}'\n \n",
+                        f"font_family = '{new_font_family}'\n",
+                        f"font_size = '{new_font_size}'\n",
+                        f"label_font_size = '{new_label_font_size}'\n",
+                        f"background_color_rgba_code = '{new_background_color}'\n",
+                        f"border_color = '{new_border_color}'\n",
+                        f"accent_color = '{new_accent_color}'\n"]
+
+        with open('config.py', 'w') as config:
+            config.writelines(changes_list)
 
         SettingsGUI.information_window()
 
     def reset(self):
-        SettingsGUI.information_window()
+        try:
+            with open('default_config.py') as default_configuration:
+                default_conf = default_configuration.read()
+
+            with open('config.py', 'w') as config:
+                config.write(default_conf)
+
+            SettingsGUI.information_window()
+        except Exception as e:
+            self.warning_window(e)
 
     def cancel(self):
         self.close()
