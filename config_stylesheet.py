@@ -40,7 +40,7 @@ settings_line_editor_stylesheet = f'''
         selection-background-color: rgba(59, 130, 246, 0.3);
     }}
     QLineEdit:focus {{
-        border: 2.25px solid {config.accent_color};
+        border: 2.25px solid rgba({config.border_color});
     }}
 '''
 text_editor_stylesheet = f'''

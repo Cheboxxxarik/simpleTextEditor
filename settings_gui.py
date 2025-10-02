@@ -1,7 +1,8 @@
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, QHBoxLayout, QGridLayout, QMessageBox)
+from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, 
+                             QHBoxLayout, QGridLayout, QMessageBox)
 from PyQt6.QtGui import QIcon
-import config, config_stylesheet, default_config
+import config, config_stylesheet
 
 
 class SettingsGUI(QDialog):
@@ -141,16 +142,11 @@ class SettingsGUI(QDialog):
         SettingsGUI.information_window()
 
     def reset(self):
-        try:
-            with open('default_config.py') as default_configuration:
-                default_conf = default_configuration.read()
-
-            with open('config.py', 'w') as config:
-                config.write(default_conf)
-
-            SettingsGUI.information_window()
-        except Exception as e:
-            self.warning_window(e)
+        with open('default_config.py') as default_configuration:
+            default_conf = default_configuration.read()
+        with open('config.py', 'w') as config:
+            config.write(default_conf)
+        SettingsGUI.information_window()
 
     def cancel(self):
         self.close()
