@@ -14,7 +14,7 @@ class Window(QMainWindow):
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
         # Добавление иконки приложения
-        self.setWindowIcon(QIcon('simpleTextEditor.png'))
+        self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя
         self.main_layout = QVBoxLayout(central_widget)
         self.main_layout.setSpacing(15)

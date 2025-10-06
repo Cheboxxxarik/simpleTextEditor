@@ -11,7 +11,7 @@ class SettingsGUI(QDialog):
         # self.resize(800, 600)
         self.setWindowTitle('Настройки')
         # Добавление иконки приложения
-        self.setWindowIcon(QIcon('simpleTextEditor.png'))
+        self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         self.main_layout = QVBoxLayout(self)
         self.grid_layout = QGridLayout()
         self.main_layout.addLayout(self.grid_layout)
