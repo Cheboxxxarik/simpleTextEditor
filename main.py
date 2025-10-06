@@ -14,7 +14,7 @@ class Window(QMainWindow):
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
         # Добавление иконки приложения
-        self.setWindowIcon(QIcon('simpleTextEditor.png'))
+        self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя
         self.main_layout = QVBoxLayout(central_widget)
         self.main_layout.setSpacing(15)
@@ -56,9 +56,6 @@ class Window(QMainWindow):
         file_menu.addAction('Открыть', lambda: functionality.open_file(self))
         file_menu.addAction('Сохранить', lambda: functionality.save_file(self))
         file_menu.addAction('Сохранить как', lambda: functionality.save_file_as(self))
-        settings_menu = QMenu('&Настройки', self)
-        self.menu_bar.addMenu(settings_menu)
-        settings_menu.addAction('Настройки', functionality.open_settings)
 
 
 # Запуск приложения

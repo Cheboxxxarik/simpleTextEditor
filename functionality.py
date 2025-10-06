@@ -1,5 +1,4 @@
 from PyQt6.QtWidgets import QMessageBox, QFileDialog
-from settings_gui import SettingsGUI
 import config
     
 def open_file(self):
@@ -45,7 +44,3 @@ def save_file_as(self):
             file.write(text)
     except FileNotFoundError:
         pass
-
-def open_settings():
-    settings_window = SettingsGUI()
-    settings_window.exec()
