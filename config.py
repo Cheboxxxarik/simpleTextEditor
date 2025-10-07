@@ -1,6 +1,6 @@
 default_folder = 'text_documents'
  
-font_family = 'Adwaita Sans Text'
+font_family = 'Adwaita Sans'
 font_size = '14pt'
 label_font_size = '16pt'
 background_color_rgba_code = '255, 255, 255, 0.5'
