@@ -18,6 +18,13 @@ def open_file(self):
     except FileNotFoundError:
         pass
 
+def error_message(text):
+    error = QMessageBox()
+    error.setWindowTitle('Ошибка')
+    error.setText(text)
+    error.setIcon(QMessageBox.Icon.Warning)
+    error.exec()
+
 def save_file(self):
     if self.is_something_was_opened:
         text = self.text_editor.toPlainText()
@@ -25,18 +32,17 @@ def save_file(self):
             file.write(text)
     else:
         title = self.text_title.text()
-        if title != '':
-            if title[-4:-1] != '.txt':
-                title = f'{title}.txt'
-            text = self.text_editor.toPlainText()
-            with open(title, 'x', encoding='utf-8') as file:
-                file.write(text)
-        else:
-            error = QMessageBox()
-            error.setWindowTitle('Ошибка')
-            error.setText('Пожалуйста, назовите Ваш текстовый документ')
-            error.setIcon(QMessageBox.Warning)
-            error.exec()
+        try:
+            if title != '':
+                if title[-4:] != '.txt':
+                    title = f'{title}.txt'
+                text = self.text_editor.toPlainText()
+                with open(f'{config.default_folder}/{title}', 'x', encoding='utf-8') as file:
+                    file.write(text)
+            else:
+                error_message(text='Пожалуйста, назовите Ваш текстовый документ')
+        except FileExistsError:
+            error_message(text='Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
 
 def save_file_as(self):
     file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
