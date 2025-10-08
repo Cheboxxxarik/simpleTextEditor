@@ -56,7 +56,7 @@ class SettingsGUI(QDialog):
         self.select_default_folder.setStyleSheet(config_stylesheet.button_stylesheet)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
-        self.accent_colour.setText('Акцентный цвет:')
+        self.accent_colour.setText('Акцентный цвет (RGB):')
         self.accent_colour.setStyleSheet(config_stylesheet.label_stylesheet)
         self.choose_accent_color = QtWidgets.QLineEdit(self)
         self.choose_accent_color.setText(config.accent_color)
