@@ -61,7 +61,7 @@ button_stylesheet = """
                 background: #eff6ff;
                 color: #1d4ed8;
                 border: 1px solid #dbeafe;
-                padding: 14px 10px;
+                padding: 14px 8px;
                 border-radius: 6px;
                 font-weight: bold;
             }
