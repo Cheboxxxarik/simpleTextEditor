@@ -1,26 +1,35 @@
 from PyQt6.QtWidgets import QMessageBox, QFileDialog
+from os.path import basename
 import config
     
 def open_file(self):
-    file_name = QFileDialog.getOpenFileName(self, "Открыть файл", 
+    self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
                                             f"{config.default_folder}",
                                             "Текстовые документы(*.txt)")[0]
     try:
-        if file_name != '':
-            self.text_title.setText(file_name)
-            with open(file_name, 'r', encoding='utf-8') as file:
+        if self.file_path != '':
+            with open(self.file_path, 'r', encoding='utf-8') as file:
                 text = file.read()
                 self.text_editor.setText(text)
+            self.file_name = basename(self.file_path)
+            self.text_title.setText(self.file_name)
+            self.text_title.setReadOnly(True)
+            self.is_something_was_opened = True
     except FileNotFoundError:
         pass
 
 def save_file(self):
-    title = self.text_title.text()
-    try:
+    if self.is_something_was_opened:
+        text = self.text_editor.toPlainText()
+        with open(self.file_path, 'w', encoding='utf-8') as file:
+            file.write(text)
+    else:
+        title = self.text_title.text()
         if title != '':
+            if title[-4:-1] != '.txt':
+                title = f'{title}.txt'
             text = self.text_editor.toPlainText()
-            file_name = f'{config.default_folder}/{title}'
-            with open(file_name, 'x', encoding='utf-8') as file:
+            with open(title, 'x', encoding='utf-8') as file:
                 file.write(text)
         else:
             error = QMessageBox()
@@ -28,11 +37,6 @@ def save_file(self):
             error.setText('Пожалуйста, назовите Ваш текстовый документ')
             error.setIcon(QMessageBox.Warning)
             error.exec()
-    except FileExistsError and OSError:
-        file_name = self.text_title.text()
-        text = self.text_editor.toPlainText()
-        with open(file_name, 'w', encoding='utf-8') as file:
-            file.write(text)
 
 def save_file_as(self):
     file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
