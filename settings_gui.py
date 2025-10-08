@@ -8,7 +8,6 @@ import config, config_stylesheet
 class SettingsGUI(QDialog):
     def __init__(self):
         super(SettingsGUI, self).__init__()
-        # self.resize(800, 600)
         self.setWindowTitle('Настройки')
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
