@@ -11,6 +11,7 @@ class Window(QMainWindow):
         self.setWindowTitle('simpleTextEditor')
         self.resize(800, 600)
         self.is_something_was_opened = False
+        self.is_something_was_saved = False
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
