@@ -26,21 +26,25 @@ def error_message(text):
     error.setIcon(QMessageBox.Icon.Warning)
     error.exec()
 
+def write_text(self, file_path, mode):
+    text = self.text_editor.toPlainText()
+    with open(file_path, mode, encoding='utf-8') as file:
+        file.write(text)
+
 def save_file(self):
     if self.is_something_was_opened:
-        text = self.text_editor.toPlainText()
-        with open(self.file_path, 'w', encoding='utf-8') as file:
-            file.write(text)
+        write_text(self, file_path=self.file_path,mode='w')
     else:
         title = self.text_title.text()
         try:
-            if title != '':
+            if self.is_something_was_saved:
+                write_text(self, file_path=self.text_title.text(), mode='w')
+            if title != '' and self.is_something_was_saved == False:
                 if title[-4:] != '.txt':
                     title = f'{title}.txt'
-                text = self.text_editor.toPlainText()
-                with open(f'{config.default_folder}/{title}', 'x', encoding='utf-8') as file:
-                    file.write(text)
-            else:
+                write_text(self, file_path=self.text_title.text(), mode='x')
+                self.is_something_was_saved = True
+            if title == '' and self.is_something_was_saved == False:
                 error_message(text='Пожалуйста, назовите Ваш текстовый документ')
         except FileExistsError:
             error_message(text='Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
