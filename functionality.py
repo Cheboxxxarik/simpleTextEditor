@@ -38,13 +38,13 @@ def save_file(self):
         title = self.text_title.text()
         try:
             if self.is_something_was_saved:
-                write_text(self, file_path=self.text_title.text(), mode='w')
+                write_text(self, file_path=f'{config.default_folder}/{self.text_title.text()}', mode='w')
             if title != '' and self.is_something_was_saved == False:
                 if title[-4:] != '.txt':
                     title = f'{title}.txt'
-                write_text(self, file_path=self.text_title.text(), mode='x')
+                write_text(self, file_path=f'{config.default_folder}/{self.text_title.text()}', mode='x')
                 self.is_something_was_saved = True
-            if title == '' and self.is_something_was_saved == False:
+            if (title == '' or title == '.txt') and self.is_something_was_saved == False:
                 error_message(text='Пожалуйста, назовите Ваш текстовый документ')
         except FileExistsError:
             error_message(text='Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
