@@ -108,6 +108,7 @@ class SettingsGUI(QDialog):
         info.setWindowTitle('Настройки')
         info.setIcon(QMessageBox.Icon.Information)
         info.setText('Для применения изменений перезапустите приложение.')
+        info.setStyleSheet(config_stylesheet.message_box_stylesheet)
         info.exec()
 
     @staticmethod
@@ -116,6 +117,7 @@ class SettingsGUI(QDialog):
         info.setWindowTitle('Настройки')
         info.setIcon(QMessageBox.Icon.Warning)
         info.setText(f'Ошибка: {e}')
+        info.setStyleSheet(config_stylesheet.message_box_stylesheet)
         info.exec()
 
     def save_changes(self):
@@ -124,16 +126,15 @@ class SettingsGUI(QDialog):
         new_font_size = self.set_font_size.text()
         new_label_font_size = self.set_label_font_size.text()
         new_background_color = self.set_background_color.text()
-        new_border_color = "58, 94, 214, 0.4"
         new_accent_color = self.choose_accent_color.text()
 
-        changes_list = [f"default_folder = '{new_default_directory}'\n \n",
+        changes_list = (f"default_folder = '{new_default_directory}'\n \n",
                         f"font_family = '{new_font_family}'\n",
                         f"font_size = '{new_font_size}'\n",
                         f"label_font_size = '{new_label_font_size}'\n",
                         f"background_color_rgba_code = '{new_background_color}'\n",
-                        f"border_color = '{new_border_color}'\n",
-                        f"accent_color = '{new_accent_color}'\n"]
+                        f"accent_color = '{new_accent_color}'\n",
+                        "border_color = f'{accent_color}, 0.7'\n")
 
         with open('config.py', 'w') as config:
             config.writelines(changes_list)
