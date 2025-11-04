@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar,
                              QMenu, QMessageBox, QVBoxLayout, 
                              QFileDialog, QHBoxLayout)
 from PyQt6.QtGui import QIcon, QPalette
-from os.path import basename
+from os.path import basename, splitext
 from settings_gui import SettingsGUI
 import config, config_stylesheet
 
@@ -72,6 +72,7 @@ class Window(QMainWindow):
         self.menu_bar.addMenu(settings_menu)
         settings_menu.addAction('Настройки', self.open_settings)
 
+    @staticmethod
     def error_message(text):
         error = QMessageBox()
         error.setWindowTitle('Ошибка')
@@ -108,16 +109,16 @@ class Window(QMainWindow):
 
     def save_file(self):
         if self.is_something_was_opened:
-            self.write_text(self, file_path=self.file_path,mode='w')
+            self.write_text(file_path=self.file_path,mode='w')
         else:
             title = self.text_title.text()
             try:
                 if self.is_something_was_saved:
-                    self.write_text(self, file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
                 if title != '' and self.is_something_was_saved == False :
-                    if title[-4:] != '.txt':
+                    if splitext(title)[1] != '.txt':
                         title = f'{title}.txt'
-                    self.write_text(self, file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
                     self.is_something_was_saved = True
                     self.text_title.setReadOnly(True)
                 if title == '' and self.is_something_was_saved == False:
