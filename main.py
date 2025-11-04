@@ -136,6 +136,7 @@ class Window(QMainWindow):
         except FileNotFoundError:
             pass
 
+    @staticmethod
     def open_settings():
         settings_window = SettingsGUI()
         settings_window.exec()
