@@ -35,18 +35,18 @@ class Window(QMainWindow):
         self.text_title.setPlaceholderText('Введите название файла...')
         self.text_title.setText('.txt')
         self.text_title.setCursorPosition(0)
-        self.text_title.setStyleSheet(config_stylesheet.line_editor_stylesheet)
+        self.text_title.setStyleSheet(config_stylesheet.TITLE_EDITOR_STYLESHEET)
         self.text_title.setMinimumHeight(50)
         # Поле для ввода текста
         self.text_editor = QtWidgets.QTextEdit(self)
         self.text_editor.setPlaceholderText('Введите текст...')
-        self.text_editor.setStyleSheet(config_stylesheet.text_editor_stylesheet)
+        self.text_editor.setStyleSheet(config_stylesheet.TEXT_EDITOR_STYLESHEET)
         # Кнопка для сохранения текста
         self.save_button = QtWidgets.QPushButton(self)
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
         self.save_button.clicked.connect(lambda: self.save_file)
-        self.save_button.setStyleSheet(config_stylesheet.button_stylesheet)
+        self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
         self.text_layout.addWidget(self.text_editor) 
@@ -59,7 +59,7 @@ class Window(QMainWindow):
         # Создание меню-бара
         self.menu_bar = QMenuBar()
         self.menu_bar.setStyleSheet('')
-        self.menu_bar.setStyleSheet(config_stylesheet.menu_bar_stylesheet)
+        self.menu_bar.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
         self.setMenuBar(self.menu_bar)
         # Создание меню-бара
         file_menu = QMenu('&Файл', self)
@@ -77,7 +77,7 @@ class Window(QMainWindow):
         error.setWindowTitle('Ошибка')
         error.setText(text)
         error.setIcon(QMessageBox.Icon.Critical)
-        error.setStyleSheet(config_stylesheet.message_box_stylesheet)
+        error.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         error.exec()
 
     def write_text(self, file_path, mode):
@@ -92,7 +92,7 @@ class Window(QMainWindow):
     
     def open_file(self):
         self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
-                                                f"{config.default_folder}",
+                                                f"{config.DEFAULT_FOLDER}",
                                                 "Текстовые документы(*.txt)")[0]
         try:
             if self.file_path != '':
@@ -113,11 +113,11 @@ class Window(QMainWindow):
             title = self.text_title.text()
             try:
                 if self.is_something_was_saved:
-                    self.write_text(self, file_path=f'{config.default_folder}/{self.text_title.text()}', mode='w')
+                    self.write_text(self, file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
                 if title != '' and self.is_something_was_saved == False :
                     if title[-4:] != '.txt':
                         title = f'{title}.txt'
-                    self.write_text(self, file_path=f'{config.default_folder}/{self.text_title.text()}', mode='x')
+                    self.write_text(self, file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
                     self.is_something_was_saved = True
                     self.text_title.setReadOnly(True)
                 if title == '' and self.is_something_was_saved == False:
@@ -127,7 +127,7 @@ class Window(QMainWindow):
 
     def save_file_as(self):
         file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
-                                                f'{config.default_folder}/{self.text_title.text()}', 
+                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', 
                                                 'Текстовые файлы (*.txt)')[0]
         text = self.text_editor.toPlainText()
         try:
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
-    app.setStyleSheet(config_stylesheet.menu_bar_stylesheet)
+    app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
     window = Window()
     window.show()
     sys.exit(app.exec())
