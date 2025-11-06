@@ -88,8 +88,9 @@
 5. Запустите файл simpleTextEditor.exe.
 #### 2) Для Linux
 1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Linux-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
-1. Запустите файл main.
+2. Перейдите на вкладку Releases
+3. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Linux-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
+4. Запустите файл main.
 ### 3-й способ - Для Linux и MacOS
 1. Установите: 
    - [Git](https://git-scm.com/downloads)
