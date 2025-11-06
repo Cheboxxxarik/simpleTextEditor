@@ -39,7 +39,7 @@
 ## 🚀 Установка и запуск
 
 ### Способ 1 — запуск из исходников
-
+а) Для всех ОС
 1. Установите:
    - [Python](https://www.python.org)
    - [Git](https://git-scm.com/downloads)
@@ -52,6 +52,27 @@
 3. Создайте виртуальное окружение: 
    ```bash
    python -m venv .venv
+   ```
+б) Для Linux и MacOS
+1. Установите: 
+   - [Git](https://git-scm.com/downloads)
+   - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
+2. Склонируйте репозиторий: 
+   ```bash
+   git clone https://github.com/Cheboxxxarik/simpleTextEditor
+   cd simpleTextEditor
+   ```
+3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
+   ```bash
+   bash install_packages.sh
+   # или
+   ./install_packages.sh
+   ```
+4. Запустите приложение:
+   ```bash
+   bash main
+   # или
+   ./main
    ```
 4. Активируйте виртуальное окружение:  
    **На Windows**: 
@@ -91,24 +112,3 @@
 2. Перейдите на вкладку Releases
 3. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Linux-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
 4. Запустите файл main.
-### 3-й способ - Для Linux и MacOS
-1. Установите: 
-   - [Git](https://git-scm.com/downloads)
-   - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Склонируйте репозиторий: 
-   ```bash
-   git clone https://github.com/Cheboxxxarik/simpleTextEditor
-   cd simpleTextEditor
-   ```
-3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
-   ```bash
-   bash install_packages.sh
-   # или
-   ./install_packages.sh
-   ```
-4. Запустите приложение:
-   ```bash
-   bash main
-   # или
-   ./main
-   ```
