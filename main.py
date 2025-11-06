@@ -44,7 +44,7 @@ class Window(QMainWindow):
         self.save_button = QtWidgets.QPushButton(self)
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
-        self.save_button.clicked.connect(lambda: self.save_file)
+        self.save_button.clicked.connect(self.save_file)
         self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
@@ -89,7 +89,7 @@ class Window(QMainWindow):
     
     def open_file(self):
         self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
-                                                f"{config.DEFAULT_FOLDER}",
+                                                "",
                                                 "Текстовые документы(*.txt)")[0]
         try:
             if self.file_path != '':
@@ -110,11 +110,11 @@ class Window(QMainWindow):
             title = self.text_title.text()
             try:
                 if self.is_something_was_saved:
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
+                    self.write_text(file_path=self.text_title.text(), mode='w')
                 if title != '' and self.is_something_was_saved == False :
                     if splitext(title)[1] != '.txt':
                         title = f'{title}.txt'
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
+                    self.write_text(file_path=self.text_title.text(), mode='x')
                     self.is_something_was_saved = True
                     self.text_title.setReadOnly(True)
                 if title == '' and self.is_something_was_saved == False:
@@ -124,7 +124,7 @@ class Window(QMainWindow):
 
     def save_file_as(self):
         file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
-                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', 
+                                                f'{self.text_title.text()}', 
                                                 'Текстовые файлы (*.txt)')[0]
         text = self.text_editor.toPlainText()
         try:
