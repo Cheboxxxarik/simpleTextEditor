@@ -91,20 +91,21 @@
 2. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Linux-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
 1. Запустите файл main.
 ### 3-й способ - Для Linux и MacOS
-1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Установите [Git](https://git-scm.com/downloads).
-3. Склонируйте репозиторий: 
+1. Установите: 
+   - [Git](https://git-scm.com/downloads)
+   - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
+2. Склонируйте репозиторий: 
    ```bash
    git clone https://github.com/Cheboxxxarik/simpleTextEditor
    cd simpleTextEditor
    ```
-4. Запустите bash-скрипт install_packages.sh для установки зависимостей.
+3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
    ```bash
    bash install_packages.sh
    # или
    ./install_packages.sh
    ```
-5. Запустите приложение:
+4. Запустите приложение:
    ```bash
    bash main
    # или
