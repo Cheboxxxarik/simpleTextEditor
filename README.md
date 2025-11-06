@@ -59,9 +59,9 @@
    .venv/Scripts/activate
    ``` 
    > ℹ️ Если появляется ошибка, откройте PowerShell от администратора и выполните:
-   ```powershell
-   Set-ExecutionPolicy Bypass
-   ```
+   > ```powershell
+   > Set-ExecutionPolicy Bypass
+   > ```
    **На Linux/MacOS**: 
    ```bash
    source .venv/bin/activate
