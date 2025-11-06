@@ -1,8 +1,10 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar, 
-                             QMenu, QVBoxLayout, QHBoxLayout)
-from PyQt6.QtGui import QIcon
-import config_stylesheet, functionality
+                             QMenu, QMessageBox, QVBoxLayout, 
+                             QFileDialog, QHBoxLayout)
+from PyQt6.QtGui import QIcon, QPalette
+from os.path import basename, splitext
+import config, config_stylesheet
 
 
 class Window(QMainWindow):
@@ -15,6 +17,9 @@ class Window(QMainWindow):
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
+        # Сброс системных цветов
+        palette = QPalette()
+        central_widget.setPalette(palette)
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя
@@ -26,20 +31,21 @@ class Window(QMainWindow):
         self.main_layout.addLayout(self.text_layout)
         # Поле для названия текста
         self.text_title = QtWidgets.QLineEdit(self)
+        self.text_title.setPlaceholderText('Введите название файла...')
         self.text_title.setText('.txt')
         self.text_title.setCursorPosition(0)
-        self.text_title.setStyleSheet(config_stylesheet.line_editor_stylesheet)
+        self.text_title.setStyleSheet(config_stylesheet.TITLE_EDITOR_STYLESHEET)
         self.text_title.setMinimumHeight(50)
         # Поле для ввода текста
         self.text_editor = QtWidgets.QTextEdit(self)
-        self.text_editor.setAutoFillBackground(False)
-        self.text_editor.setStyleSheet(config_stylesheet.text_editor_stylesheet)
+        self.text_editor.setPlaceholderText('Введите текст...')
+        self.text_editor.setStyleSheet(config_stylesheet.TEXT_EDITOR_STYLESHEET)
         # Кнопка для сохранения текста
         self.save_button = QtWidgets.QPushButton(self)
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
-        self.save_button.clicked.connect(lambda: functionality.save_file(self))
-        self.save_button.setStyleSheet(config_stylesheet.button_stylesheet)
+        self.save_button.clicked.connect(lambda: self.save_file)
+        self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
         self.text_layout.addWidget(self.text_editor) 
@@ -51,19 +57,89 @@ class Window(QMainWindow):
         self.text_layout.addLayout(button_layout)
         # Создание меню-бара
         self.menu_bar = QMenuBar()
+        self.menu_bar.setStyleSheet('')
+        self.menu_bar.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
         self.setMenuBar(self.menu_bar)
         # Создание меню-бара
         file_menu = QMenu('&Файл', self)
         self.menu_bar.addMenu(file_menu)
-        file_menu.addAction('Открыть', lambda: functionality.open_file(self))
-        file_menu.addAction('Сохранить', lambda: functionality.save_file(self))
-        file_menu.addAction('Сохранить как', lambda: functionality.save_file_as(self))
+        file_menu.addAction('Новый файл', self.new_file)
+        file_menu.addAction('Открыть файл', self.open_file)
+        file_menu.addAction('Сохранить', self.save_file)
+        file_menu.addAction('Сохранить как', self.save_file_as)
+
+    @staticmethod
+    def error_message(text):
+        error = QMessageBox()
+        error.setWindowTitle('Ошибка')
+        error.setText(text)
+        error.setIcon(QMessageBox.Icon.Critical)
+        error.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
+        error.exec()
+
+    def write_text(self, file_path, mode):
+        text = self.text_editor.toPlainText()
+        with open(file_path, mode, encoding='utf-8') as file:
+            file.write(text)
+
+    def new_file(self):
+        self.text_title.setText('.txt')
+        self.text_title.setCursorPosition(0)
+        self.text_editor.setText('')
+    
+    def open_file(self):
+        self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
+                                                f"{config.DEFAULT_FOLDER}",
+                                                "Текстовые документы(*.txt)")[0]
+        try:
+            if self.file_path != '':
+                with open(self.file_path, 'r', encoding='utf-8') as file:
+                    text = file.read()
+                    self.text_editor.setText(text)
+                self.file_name = basename(self.file_path)
+                self.text_title.setText(self.file_name)
+                self.text_title.setReadOnly(True)
+                self.is_something_was_opened = True
+        except FileNotFoundError:
+            pass
+
+    def save_file(self):
+        if self.is_something_was_opened:
+            self.write_text(file_path=self.file_path,mode='w')
+        else:
+            title = self.text_title.text()
+            try:
+                if self.is_something_was_saved:
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
+                if title != '' and self.is_something_was_saved == False :
+                    if splitext(title)[1] != '.txt':
+                        title = f'{title}.txt'
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
+                    self.is_something_was_saved = True
+                    self.text_title.setReadOnly(True)
+                if title == '' and self.is_something_was_saved == False:
+                    self.error_message('Пожалуйста, назовите Ваш текстовый документ')
+            except FileExistsError:
+                self.error_message('Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
+
+    def save_file_as(self):
+        file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
+                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', 
+                                                'Текстовые файлы (*.txt)')[0]
+        text = self.text_editor.toPlainText()
+        try:
+            with open(file_name, 'w', encoding='utf-8') as file:
+                file.write(text)
+        except FileNotFoundError:
+            pass
 
 
 # Запуск приложения
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
+    app.setStyle('Fusion')
+    app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
     window = Window()
     window.show()
     sys.exit(app.exec())
