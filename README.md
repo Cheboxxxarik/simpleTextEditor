@@ -54,7 +54,10 @@
    python -m venv .venv
    ```
 4. Активируйте виртуальное окружение:  
-   **На Windows**: `.venv/Scripts/activate` 
+   **На Windows**: 
+   ```powershell
+   .venv/Scripts/activate
+   ``` 
    > ℹ️ Если появляется ошибка, откройте PowerShell от администратора и выполните:
    ```powershell
    Set-ExecutionPolicy Bypass
