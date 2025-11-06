@@ -39,7 +39,7 @@
 ## 🚀 Установка и запуск
 
 ### Способ 1 — запуск из исходников
-а) Для всех ОС
+#### 1) Для всех ОС
 1. Установите:
    - [Python](https://www.python.org)
    - [Git](https://git-scm.com/downloads)
@@ -53,7 +53,7 @@
    ```bash
    python -m venv .venv
    ```
-б) Для Linux и MacOS
+#### 2) Для Linux и MacOS
 1. Установите: 
    - [Git](https://git-scm.com/downloads)
    - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
