@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar,
                              QFileDialog, QHBoxLayout)
 from PyQt6.QtGui import QIcon, QPalette
 from os.path import basename, splitext
-import config, config_stylesheet
+import config_stylesheet
 
 
 class Window(QMainWindow):
