@@ -23,9 +23,10 @@
 
 ## 🔍 Превью интерфейса
 
-| Светлая тема | Тёмная тема |
-|-------------|-------------|
-| ![Light Preview](./screenshots/light.png) | ![Dark Preview](./screenshots/dark.png) |
+|          | Светлая тема | Тёмная тема |
+|----------|--------------|-------------|
+| Windows  | ![Light Preview](screenshots/win/light.png) | ![Dark Preview](screenshots/win/dark.png) |
+| Linux    | ![Light Preview](screenshots/linux/light.png) | ![Dark Preview](screenshots/linux/dark.png) |
 
 ---
 
@@ -107,8 +108,7 @@
 1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts).
 2. Перейдите на вкладку Releases.
 3. Скачайте .zip-архив "simpleTextEditor-v.1.0.1-win.zip" и распакуйте его в любом удобном для Вас месте.
-4. Откройте папку dist.
-5. Запустите файл simpleTextEditor.exe.
+4. Запустите файл simpleTextEditor.exe.
 #### 2) Для Linux
 1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts).
 2. Перейдите на вкладку Releases.
