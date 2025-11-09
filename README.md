@@ -39,7 +39,7 @@
 ## 🚀 Установка и запуск
 
 ### Способ 1 — запуск из исходников
-#### 1) Для всех ОС
+а) Для всех ОС
 1. Установите:
    - [Python](https://www.python.org)
    - [Git](https://git-scm.com/downloads)
@@ -52,27 +52,6 @@
 3. Создайте виртуальное окружение: 
    ```bash
    python -m venv .venv
-   ```
-#### 2) Для Linux и MacOS
-1. Установите: 
-   - [Git](https://git-scm.com/downloads)
-   - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Склонируйте репозиторий: 
-   ```bash
-   git clone https://github.com/Cheboxxxarik/simpleTextEditor
-   cd simpleTextEditor
-   ```
-3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
-   ```bash
-   bash install_packages.sh
-   # или
-   ./install_packages.sh
-   ```
-4. Запустите приложение:
-   ```bash
-   bash main
-   # или
-   ./main
    ```
 4. Активируйте виртуальное окружение:  
    **На Windows**: 
@@ -98,6 +77,27 @@
    python main.py
    # или
    python3 main.py
+   ```
+б) Для Linux и MacOS
+1. Установите: 
+   - [Git](https://git-scm.com/downloads)
+   - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
+2. Склонируйте репозиторий: 
+   ```bash
+   git clone https://github.com/Cheboxxxarik/simpleTextEditor
+   cd simpleTextEditor
+   ```
+3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
+   ```bash
+   bash install_dependences.sh
+   # или
+   ./install_packages.sh
+   ```
+4. Запустите приложение:
+   ```bash
+   bash main.sh
+   # или
+   ./main.sh
    ```
 ### 2-й способ - готовые версии
 >⚠️ В готовых версиях отключены функции кастомизации интерфейса.
