@@ -23,9 +23,10 @@
 
 ## 🔍 Превью интерфейса
 
-| Светлая тема | Тёмная тема |
-|-------------|-------------|
-| ![Light Preview](./screenshots/light.png) | ![Dark Preview](./screenshots/dark.png) |
+|          | Светлая тема | Тёмная тема |
+|----------|--------------|-------------|
+| Windows  | ![Light Preview](screenshots/win/light.png) | ![Dark Preview](screenshots/win/dark.png) |
+| Linux    | ![Light Preview](screenshots/linux/light.png) | ![Dark Preview](screenshots/linux/dark.png) |
 
 ---
 
