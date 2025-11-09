@@ -16,7 +16,7 @@
 - Открытие и сохранение текстовых файлов (`.txt`)
 - Поддержка светлой и тёмной темы интерфейса
 - Удобный и минималистичный интерфейс
-- Сохранение пользовательских настроек через `config.py`
+- Сохранение пользовательских настроек
 - Кроссплатформенность: Windows / Linux / macOS
 
 ---
@@ -26,6 +26,8 @@
 | Светлая тема | Тёмная тема |
 |-------------|-------------|
 | ![Light Preview](./screenshots/light.png) | ![Dark Preview](./screenshots/dark.png) |
+
+---
 
 ## 🛠 Используемые технологии
 
@@ -44,7 +46,7 @@
    - [Python](https://www.python.org)
    - [Git](https://git-scm.com/downloads)
    - Шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Склонируйте репозиторий:
+2. Клонируйте репозиторий:
    ```bash
    git clone https://github.com/Cheboxxxarik/simpleTextEditor
    cd simpleTextEditor
@@ -82,16 +84,16 @@
 1. Установите: 
    - [Git](https://git-scm.com/downloads)
    - шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Склонируйте репозиторий: 
+2. Клонируйте репозиторий: 
    ```bash
    git clone https://github.com/Cheboxxxarik/simpleTextEditor
    cd simpleTextEditor
    ```
-3. Запустите bash-скрипт install_packages.sh для установки зависимостей.
+3. Запустите bash-скрипт install_dependencies.sh для установки зависимостей.
    ```bash
-   bash install_dependences.sh
+   bash install_dependencies.sh
    # или
-   ./install_packages.sh
+   ./install_dependencies.sh
    ```
 4. Запустите приложение:
    ```bash
@@ -102,13 +104,13 @@
 ### 2-й способ - готовые версии
 >⚠️ В готовых версиях отключены функции кастомизации интерфейса.
 #### 1) Для Windows 
-1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Перейдите на вкладку Releases
-3. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Windows-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
+1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts).
+2. Перейдите на вкладку Releases.
+3. Скачайте .zip-архив "simpleTextEditor-v.1.0.1-win.zip" и распакуйте его в любом удобном для Вас месте.
 4. Откройте папку dist.
 5. Запустите файл simpleTextEditor.exe.
 #### 2) Для Linux
-1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts)
-2. Перейдите на вкладку Releases
-3. Скачайте .zip-архив "simpleTextEditor-v.1.0.0-Linux-minimal_app.zip" и распакуйте его в любом удобном для Вас месте
+1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts).
+2. Перейдите на вкладку Releases.
+3. Скачайте .zip-архив "simpleTextEditor-v.1.0.1-linux.zip" и распакуйте его в любом удобном для Вас месте.
 4. Запустите файл main.
