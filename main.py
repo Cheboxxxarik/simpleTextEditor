@@ -45,7 +45,7 @@ class Window(QMainWindow):
         self.save_button = QtWidgets.QPushButton(self)
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
-        self.save_button.clicked.connect(lambda: self.save_file)
+        self.save_button.clicked.connect(self.save_file)
         self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
