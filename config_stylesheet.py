@@ -123,7 +123,7 @@ MENU_BAR_STYLESHEET = f'''
     }}
 '''
 # Стиль для кнопок
-BUTTON_STYLSHEET = f"""
+BUTTON_STYLESHEET = f"""
     QPushButton {{
         font-family: {config.FONT_FAMILY};
         font-size: 12pt;

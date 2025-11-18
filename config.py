@@ -1,6 +1,8 @@
+import os
+
 # Папка для сохранения текстовых документов по умолчанию
-DEFAULT_FOLDER = 'text_documents'
- 
+DEFAULT_FOLDER = os.path.join(os.path.expanduser("~"), 'Documents')
+
 # Шрифт по умолчанию
 FONT_FAMILY = 'Adwaita Sans'
 # Размер основного текста по умолчанию

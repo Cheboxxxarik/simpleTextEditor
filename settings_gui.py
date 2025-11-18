@@ -46,13 +46,13 @@ class SettingsGUI(QDialog):
         self.default_folder_settings = QtWidgets.QLabel(self)
         self.default_folder_settings.setText('Папка по умолчанию:')
         self.default_folder_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
-        self.default_diretory = QtWidgets.QLineEdit(self)
-        self.default_diretory.setText(config.DEFAULT_FOLDER)
-        self.default_diretory.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+        self.default_directory = QtWidgets.QLineEdit(self)
+        self.default_directory.setText(config.DEFAULT_FOLDER)
+        self.default_directory.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
         self.select_default_folder = QtWidgets.QPushButton(self)
         self.select_default_folder.setText('Выбрать')
         self.select_default_folder.clicked.connect(self.select_folder)
-        self.select_default_folder.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
+        self.select_default_folder.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
         self.accent_colour.setText('Акцентный цвет (RGB):')
@@ -64,17 +64,17 @@ class SettingsGUI(QDialog):
         self.save_settings = QtWidgets.QPushButton(self)
         self.save_settings.setText('Сохранить')
         self.save_settings.clicked.connect(self.save_changes)
-        self.save_settings.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
+        self.save_settings.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         # Кнопка сброса настроек
         self.reset_settings = QtWidgets.QPushButton(self)
         self.reset_settings.setText('Сброс настроек')
         self.reset_settings.clicked.connect(self.reset)
-        self.reset_settings.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
+        self.reset_settings.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         # Кнопка отмены изменений
         self.cancel_changes = QtWidgets.QPushButton(self)
         self.cancel_changes.setText('Отмена')
         self.cancel_changes.clicked.connect(self.cancel)
-        self.cancel_changes.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
+        self.cancel_changes.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
 
         self.grid_layout.addWidget(self.font_family_settings, 0, 0)
         self.grid_layout.addWidget(self.select_font_family, 0, 1)
@@ -85,7 +85,7 @@ class SettingsGUI(QDialog):
         self.grid_layout.addWidget(self.background_color_settings, 3, 0)
         self.grid_layout.addWidget(self.set_background_color, 3, 1)
         self.grid_layout.addWidget(self.default_folder_settings, 4, 0)
-        self.grid_layout.addWidget(self.default_diretory, 4, 1)
+        self.grid_layout.addWidget(self.default_directory, 4, 1)
         self.grid_layout.addWidget(self.select_default_folder, 4, 2)
         self.grid_layout.addWidget(self.accent_colour, 5, 0)
         self.grid_layout.addWidget(self.choose_accent_color, 5, 1)
@@ -100,7 +100,7 @@ class SettingsGUI(QDialog):
     def select_folder(self):
         folder_name = QFileDialog.getExistingDirectory(self)
         if folder_name != '':
-            self.default_diretory.setText(folder_name)
+            self.default_directory.setText(folder_name)
 
     @staticmethod
     def information_window():
@@ -121,15 +121,16 @@ class SettingsGUI(QDialog):
         info.exec()
 
     def save_changes(self):
-        new_default_directory = self.default_diretory.text()
+        new_default_directory = self.default_directory.text().replace('\\', '/')
         new_font_family = self.select_font_family.text()
         new_font_size = self.set_font_size.text()
         new_label_font_size = self.set_label_font_size.text()
         new_background_color = self.set_background_color.text()
         new_accent_color = self.choose_accent_color.text()
 
-        changes_list = ("# Папка для сохранения текстовых документов по умолчанию\n",
-                        f"DEFAULT_FOLDER = '{new_default_directory}'\n \n",
+        changes_list = ("import os \n\n"
+                        "# Папка для сохранения текстовых документов по умолчанию\n",
+                        f"DEFAULT_FOLDER = '{new_default_directory}'\n\n",
                         "# Шрифт по умолчанию\n",
                         f"FONT_FAMILY = '{new_font_family}'\n",
                         "# Размер основного текста по умолчанию\n",
@@ -143,16 +144,17 @@ class SettingsGUI(QDialog):
                         "# Цвет обводки полей\n"
                         "BORDER_COLOR = f'{ACCENT_COLOR}, 0.7'\n")
 
-        with open('config.py', 'w', encoding='utf-8') as config:
-            config.writelines(changes_list)
+        with open('config.py', 'w', encoding='utf-8') as configuration:
+            configuration.writelines(changes_list)
 
         SettingsGUI.information_window()
 
-    def reset(self):
+    @staticmethod
+    def reset():
         with open('default_config.py') as default_configuration:
             default_conf = default_configuration.read()
-        with open('config.py', 'w') as config:
-            config.write(default_conf)
+        with open('config.py', 'w') as configuration:
+            configuration.write(default_conf)
         SettingsGUI.information_window()
 
     def cancel(self):

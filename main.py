@@ -4,8 +4,8 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar,
                              QFileDialog, QHBoxLayout)
 from PyQt6.QtGui import QIcon, QPalette
 from os.path import basename, splitext
-from settings_gui import SettingsGUI
 import config, config_stylesheet
+from settings_gui import SettingsGUI
 
 
 class Window(QMainWindow):
@@ -13,8 +13,6 @@ class Window(QMainWindow):
         super(Window, self).__init__()
         self.setWindowTitle('simpleTextEditor')
         self.resize(800, 600)
-        self.is_something_was_opened = False
-        self.is_something_was_saved = False
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
@@ -32,8 +30,7 @@ class Window(QMainWindow):
         self.main_layout.addLayout(self.text_layout)
         # Поле для названия текста
         self.text_title = QtWidgets.QLineEdit(self)
-        self.text_title.setPlaceholderText('Введите название файла...')
-        self.text_title.setText('.txt')
+        self.text_title.setPlaceholderText('Название файла.txt')
         self.text_title.setCursorPosition(0)
         self.text_title.setStyleSheet(config_stylesheet.TITLE_EDITOR_STYLESHEET)
         self.text_title.setMinimumHeight(50)
@@ -46,7 +43,7 @@ class Window(QMainWindow):
         self.save_button.setText('Сохранить')
         self.save_button.setMaximumWidth(100)
         self.save_button.clicked.connect(self.save_file)
-        self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLSHEET)
+        self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         # Добавление виджетов
         self.text_layout.addWidget(self.text_title)
         self.text_layout.addWidget(self.text_editor) 
@@ -72,6 +69,10 @@ class Window(QMainWindow):
         self.menu_bar.addMenu(settings_menu)
         settings_menu.addAction('Настройки', self.open_settings)
 
+        self.is_something_was_opened = False
+        self.is_something_was_saved = False
+
+    # Уведомление об ошибке
     @staticmethod
     def error_message(text):
         error = QMessageBox()
@@ -81,16 +82,19 @@ class Window(QMainWindow):
         error.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         error.exec()
 
+    # Функция для записи текста
+    # Аргументы функции: filepath - путь к файлу, mode - режим записи текста
     def write_text(self, file_path, mode):
         text = self.text_editor.toPlainText()
         with open(file_path, mode, encoding='utf-8') as file:
             file.write(text)
 
+    # Функция для создания нового файла
     def new_file(self):
-        self.text_title.setText('.txt')
         self.text_title.setCursorPosition(0)
         self.text_editor.setText('')
     
+    # Функция для открытия файла
     def open_file(self):
         self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
                                                 f"{config.DEFAULT_FOLDER}",
@@ -107,6 +111,7 @@ class Window(QMainWindow):
         except FileNotFoundError:
             pass
 
+    # Функция для сохранения файла
     def save_file(self):
         if self.is_something_was_opened:
             self.write_text(file_path=self.file_path,mode='w')
@@ -114,11 +119,13 @@ class Window(QMainWindow):
             title = self.text_title.text()
             try:
                 if self.is_something_was_saved:
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='w')
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+                                    mode='w')
                 if title != '' and self.is_something_was_saved == False :
                     if splitext(title)[1] != '.txt':
                         title = f'{title}.txt'
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', mode='x')
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+                                    mode='x')
                     self.is_something_was_saved = True
                     self.text_title.setReadOnly(True)
                 if title == '' and self.is_something_was_saved == False:
@@ -126,9 +133,10 @@ class Window(QMainWindow):
             except FileExistsError:
                 self.error_message('Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
 
+    # Функция для сохранения файлов, в директории, выбранной пользователем
     def save_file_as(self):
         file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
-                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}', 
+                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
                                                 'Текстовые файлы (*.txt)')[0]
         text = self.text_editor.toPlainText()
         try:
@@ -137,6 +145,7 @@ class Window(QMainWindow):
         except FileNotFoundError:
             pass
 
+    # Функция для открытия окна настроек
     @staticmethod
     def open_settings():
         settings_window = SettingsGUI()
