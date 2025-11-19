@@ -126,14 +126,14 @@ class Window(QMainWindow):
             self.write_text(file_path=self.file_path,mode='w')
         else:
             title = self.text_title.text()
+            if splitext(title)[1] != '.txt':
+                title = f'{title}.txt'
             try:
                 if self.is_something_was_saved:
                     self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
                                     mode='w')
                 else:
                     if title != '':
-                        if splitext(title)[1] != '.txt':
-                            title = f'{title}.txt'
                         self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
                                         mode='x')
                         self.is_something_was_saved = True
@@ -145,13 +145,13 @@ class Window(QMainWindow):
 
     # Функция для сохранения файлов, в директории, выбранной пользователем
     def save_file_as(self):
-        file_name = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
+        self.file_path = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
                                                 f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
                                                 'Текстовые файлы (*.txt)')[0]
-        text = self.text_editor.toPlainText()
         try:
-            with open(file_name, 'w', encoding='utf-8') as file:
-                file.write(text)
+            self.write_text(file_path=self.file_path, mode='w')
+            self.is_something_was_opened = True
+            self.is_something_was_saved = True
         except FileNotFoundError:
             pass
 
