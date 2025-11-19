@@ -1,4 +1,4 @@
-import config
+import config as config
 
 # Поле для заголовка
 TITLE_EDITOR_STYLESHEET = f'''

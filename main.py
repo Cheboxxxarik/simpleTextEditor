@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar,
                              QFileDialog, QHBoxLayout)
 from PyQt6.QtGui import QIcon, QPalette
 from os.path import basename, splitext
-import config, config_stylesheet
+import config as config, config_stylesheet
 from settings_gui import SettingsGUI
 
 
@@ -30,7 +30,7 @@ class Window(QMainWindow):
         self.main_layout.addLayout(self.text_layout)
         # Поле для названия текста
         self.text_title = QtWidgets.QLineEdit(self)
-        self.text_title.setPlaceholderText('Название файла.txt')
+        self.text_title.setPlaceholderText('Введите название файла.txt')
         self.text_title.setCursorPosition(0)
         self.text_title.setStyleSheet(config_stylesheet.TITLE_EDITOR_STYLESHEET)
         self.text_title.setMinimumHeight(50)
@@ -108,11 +108,18 @@ class Window(QMainWindow):
                 self.text_title.setText(self.file_name)
                 self.text_title.setReadOnly(True)
                 self.is_something_was_opened = True
+                return True
         except FileNotFoundError:
-            pass
+            return False
+
+    def check_banned_symbols(self):
+        banned_symbols = set('@/*#!$%^?\\[]-_+=;`~,<>\'"|')
+        if set(self.text_title.text()) & banned_symbols:
+            self.error_message('В названии содержатся запрещённые символы')
 
     # Функция для сохранения файла
     def save_file(self):
+        self.check_banned_symbols()
         if self.is_something_was_opened:
             self.write_text(file_path=self.file_path,mode='w')
         else:
@@ -121,15 +128,16 @@ class Window(QMainWindow):
                 if self.is_something_was_saved:
                     self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
                                     mode='w')
-                if title != '' and self.is_something_was_saved == False :
-                    if splitext(title)[1] != '.txt':
-                        title = f'{title}.txt'
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
-                                    mode='x')
-                    self.is_something_was_saved = True
-                    self.text_title.setReadOnly(True)
-                if title == '' and self.is_something_was_saved == False:
-                    self.error_message('Пожалуйста, назовите Ваш текстовый документ')
+                else:
+                    if title != '':
+                        if splitext(title)[1] != '.txt':
+                            title = f'{title}.txt'
+                        self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+                                        mode='x')
+                        self.is_something_was_saved = True
+                        self.text_title.setReadOnly(True)
+                    else:
+                        self.error_message('Пожалуйста, назовите Ваш текстовый документ')
             except FileExistsError:
                 self.error_message('Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
 

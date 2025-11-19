@@ -2,8 +2,8 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, 
                              QHBoxLayout, QGridLayout, QMessageBox)
 from PyQt6.QtGui import QIcon
-import config, config_stylesheet
-
+import json, os
+import config as config, config_stylesheet
 
 class SettingsGUI(QDialog):
     def __init__(self):
@@ -42,17 +42,6 @@ class SettingsGUI(QDialog):
         self.set_background_color = QtWidgets.QLineEdit(self)
         self.set_background_color.setText(config.BACKGROUND_COLOR_RGBA_CODE)
         self.set_background_color.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
-        # Папка для сохранения текстовых документов по умолчанию
-        self.default_folder_settings = QtWidgets.QLabel(self)
-        self.default_folder_settings.setText('Папка по умолчанию:')
-        self.default_folder_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
-        self.default_directory = QtWidgets.QLineEdit(self)
-        self.default_directory.setText(config.DEFAULT_FOLDER)
-        self.default_directory.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
-        self.select_default_folder = QtWidgets.QPushButton(self)
-        self.select_default_folder.setText('Выбрать')
-        self.select_default_folder.clicked.connect(self.select_folder)
-        self.select_default_folder.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
         self.accent_colour.setText('Акцентный цвет (RGB):')
@@ -84,9 +73,6 @@ class SettingsGUI(QDialog):
         self.grid_layout.addWidget(self.set_label_font_size, 2, 1)
         self.grid_layout.addWidget(self.background_color_settings, 3, 0)
         self.grid_layout.addWidget(self.set_background_color, 3, 1)
-        self.grid_layout.addWidget(self.default_folder_settings, 4, 0)
-        self.grid_layout.addWidget(self.default_directory, 4, 1)
-        self.grid_layout.addWidget(self.select_default_folder, 4, 2)
         self.grid_layout.addWidget(self.accent_colour, 5, 0)
         self.grid_layout.addWidget(self.choose_accent_color, 5, 1)
 
@@ -120,41 +106,63 @@ class SettingsGUI(QDialog):
         info.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         info.exec()
 
+    def check_colors(self, new_background_color, new_accent_color):
+        try:
+            bg_components = new_background_color.split(sep=',')
+            acc_components = new_accent_color.split(sep=',')
+            bg_color = tuple(float(component) for component in bg_components)
+            acc_color = tuple(float(component) for component in acc_components)
+
+            if len(bg_color) != 4 or len(acc_color) != 3:
+                self.warning_window('Неверное количество цветовых компонентов!')
+                return False
+            if bg_color[3] > 1:
+                self.warning_window('Вы ввели некорректные цвета')
+                return False
+            for i, j in zip(bg_color[:3], acc_color):
+                if i > 255 or i < 0 or j > 255 or j < 0:
+                    self.warning_window('Вы ввели некорректные цвета!')
+                    return False
+            return True
+        except (ValueError, IndexError):
+            self.warning_window('Ошибка при обработке цветов!')
+            return False
+
     def save_changes(self):
-        new_default_directory = self.default_directory.text().replace('\\', '/')
         new_font_family = self.select_font_family.text()
         new_font_size = self.set_font_size.text()
         new_label_font_size = self.set_label_font_size.text()
         new_background_color = self.set_background_color.text()
         new_accent_color = self.choose_accent_color.text()
 
-        changes_list = ("import os \n\n"
-                        "# Папка для сохранения текстовых документов по умолчанию\n",
-                        f"DEFAULT_FOLDER = '{new_default_directory}'\n\n",
-                        "# Шрифт по умолчанию\n",
-                        f"FONT_FAMILY = '{new_font_family}'\n",
-                        "# Размер основного текста по умолчанию\n",
-                        f"FONT_SIZE = '{new_font_size}'\n",
-                        "# Размер заголовка по умолчанию\n",
-                        f"LABEL_FONT_SIZE = '{new_label_font_size}'\n",
-                        "# Фоновый цвет текстового поля по умолчанию\n",
-                        f"BACKGROUND_COLOR_RGBA_CODE = '{new_background_color}'\n",
-                        "# Акцентный цвет\n"
-                        f"ACCENT_COLOR = '{new_accent_color}'\n",
-                        "# Цвет обводки полей\n"
-                        "BORDER_COLOR = f'{ACCENT_COLOR}, 0.7'\n")
+        if self.check_colors(new_background_color, new_accent_color):
+            new_config = {
+            'font': {
+                'family': new_font_family,
+                'size': new_font_size,
+                'label_size': new_label_font_size
+            },
+            'colors': {
+                'background_rgba': new_background_color,
+                'accent': new_accent_color,
+                'border_opacity': 0.7
+            }
+            }
 
-        with open('config.py', 'w', encoding='utf-8') as configuration:
-            configuration.writelines(changes_list)
+            # Сохраняет конфигурацию в JSON файл
+            os.makedirs(config.CONFIG_DIR, exist_ok=True)
+            with open(config.CONFIG_FILE, 'w', encoding='utf-8') as file:
+                json.dump(new_config, file, indent=4)
 
-        SettingsGUI.information_window()
+            SettingsGUI.information_window()
+        else:
+            self.set_background_color.setText(config.BACKGROUND_COLOR_RGBA_CODE)
+            self.choose_accent_color.setText(config.ACCENT_COLOR)
+        
 
     @staticmethod
     def reset():
-        with open('default_config.py') as default_configuration:
-            default_conf = default_configuration.read()
-        with open('config.py', 'w') as configuration:
-            configuration.write(default_conf)
+        config.create_default_config()
         SettingsGUI.information_window()
 
     def cancel(self):
