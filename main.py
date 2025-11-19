@@ -112,6 +112,7 @@ class Window(QMainWindow):
         except FileNotFoundError:
             return False
 
+    # Функция для проверки названия файла на содержание запрещенных символов
     def check_banned_symbols(self):
         banned_symbols = set('@/*#!$%^?\\[]-_+=;`~,<>\'"|')
         if set(self.text_title.text()) & banned_symbols:
@@ -126,13 +127,13 @@ class Window(QMainWindow):
             title = self.text_title.text()
             try:
                 if self.is_something_was_saved:
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
                                     mode='w')
                 else:
                     if title != '':
                         if splitext(title)[1] != '.txt':
                             title = f'{title}.txt'
-                        self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+                        self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
                                         mode='x')
                         self.is_something_was_saved = True
                         self.text_title.setReadOnly(True)
