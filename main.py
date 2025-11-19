@@ -93,6 +93,8 @@ class Window(QMainWindow):
     def new_file(self):
         self.text_title.setCursorPosition(0)
         self.text_editor.setText('')
+        self.is_something_was_opened = False
+        self.is_something_was_saved = False
     
     # Функция для открытия файла
     def open_file(self):
@@ -108,9 +110,8 @@ class Window(QMainWindow):
                 self.text_title.setText(self.file_name)
                 self.text_title.setReadOnly(True)
                 self.is_something_was_opened = True
-                return True
         except FileNotFoundError:
-            return False
+            pass
 
     # Функция для проверки названия файла на содержание запрещенных символов
     def check_banned_symbols(self):
