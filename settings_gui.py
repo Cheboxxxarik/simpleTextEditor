@@ -48,7 +48,7 @@ class SettingsGUI(QDialog):
         self.theme_label.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
         self.choose_theme = QtWidgets.QComboBox(self)
         self.choose_theme.addItems(['Системная', 'Светлая', 'Тёмная'])
-        self.get_current_theme()
+        self.choose_theme.setCurrentIndex(self.get_current_theme())
         self.choose_theme.setStyleSheet(config_stylesheet.COMBO_BOX_STYLESHEET)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
@@ -95,11 +95,11 @@ class SettingsGUI(QDialog):
 
     def get_current_theme(self):
         if config.THEME == 'light':
-            self.choose_theme.setCurrentIndex(1)
+            return 1
         elif config.THEME == 'dark':
-            self.choose_theme.setCurrentIndex(2)
+            return 2
         else:
-            self.choose_theme.setCurrentIndex(0)
+            return 0
 
     @staticmethod
     def information_window():
