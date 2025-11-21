@@ -37,11 +37,18 @@ class SettingsGUI(QDialog):
         self.set_label_font_size.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
         # Выбор фонового цвета
         self.background_color_settings = QtWidgets.QLabel(self)
-        self.background_color_settings.setText('Фоновый цвет текстовых полей (rgba):')
+        self.background_color_settings.setText('Фоновый цвет текстовых полей (RGBA):')
         self.background_color_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
         self.set_background_color = QtWidgets.QLineEdit(self)
         self.set_background_color.setText(config.BACKGROUND_COLOR_RGBA_CODE)
         self.set_background_color.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+        # Настройки темы
+        self.theme_label = QtWidgets.QLabel(self)
+        self.theme_label.setText('Тема:')
+        self.theme_label.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+        self.choose_theme = QtWidgets.QComboBox()
+        self.choose_theme.addItems(['системная', 'светлая', 'тёмная'])
+        self.choose_theme.setStyleSheet(config_stylesheet.COMBO_BOX_STYLESHEET)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
         self.accent_colour.setText('Акцентный цвет (RGB):')
@@ -73,6 +80,8 @@ class SettingsGUI(QDialog):
         self.grid_layout.addWidget(self.set_label_font_size, 2, 1)
         self.grid_layout.addWidget(self.background_color_settings, 3, 0)
         self.grid_layout.addWidget(self.set_background_color, 3, 1)
+        self.grid_layout.addWidget(self.theme_label, 4, 0)
+        self.grid_layout.addWidget(self.choose_theme, 4, 1)
         self.grid_layout.addWidget(self.accent_colour, 5, 0)
         self.grid_layout.addWidget(self.choose_accent_color, 5, 1)
 
@@ -129,11 +138,19 @@ class SettingsGUI(QDialog):
             return False
 
     def save_changes(self):
+        new_theme = self.choose_theme.currentIndex()
         new_font_family = self.select_font_family.text()
         new_font_size = self.set_font_size.text()
         new_label_font_size = self.set_label_font_size.text()
         new_background_color = self.set_background_color.text()
         new_accent_color = self.choose_accent_color.text()
+
+        if new_theme == 1:
+            new_theme = 'light'
+        elif new_theme == 2:
+            new_theme = 'dark'
+        else:
+            new_theme = 'system'
 
         if self.check_colors(new_background_color, new_accent_color):
             new_config = {
@@ -143,6 +160,7 @@ class SettingsGUI(QDialog):
                 'label_size': new_label_font_size
             },
             'colors': {
+                'theme': new_theme,
                 'background_rgba': new_background_color,
                 'accent': new_accent_color,
                 'border_opacity': 0.7
@@ -159,18 +177,19 @@ class SettingsGUI(QDialog):
             self.set_background_color.setText(config.BACKGROUND_COLOR_RGBA_CODE)
             self.choose_accent_color.setText(config.ACCENT_COLOR)
         
-
-    @staticmethod
-    def reset():
+   
+    def reset(self):
         config.create_default_config()
-        SettingsGUI.information_window()
+        self.information_window()
 
     def cancel(self):
         self.close()
 
 if __name__ == '__main__':
     import sys
-    application = QtWidgets.QApplication(sys.argv)
-    settings_window = SettingsGUI()
-    settings_window.show()
-    sys.exit(application.exec())
+    app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion') 
+    config_stylesheet.theme_applier(app)
+    window = SettingsGUI()
+    window.show()
+    sys.exit(app.exec())

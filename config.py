@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QMessageBox
-import os
-import json
+import json, os
 
 CONFIG_DIR = os.path.dirname(__file__)
 CONFIG_FILE = os.path.join('config.json')
@@ -13,11 +12,11 @@ def load_config():
         with open(CONFIG_FILE, 'r', encoding='utf-8') as file:
             config_data = json.load(file)
             
-            # Преобразуем вашу структуру в совместимую
             return {
                 'FONT_FAMILY': config_data['font']['family'],
                 'FONT_SIZE': config_data['font']['size'],
                 'LABEL_FONT_SIZE': config_data['font']['label_size'],
+                'THEME': config_data['colors']['theme'],
                 'BACKGROUND_COLOR_RGBA_CODE': config_data['colors']['background_rgba'],
                 'ACCENT_COLOR': config_data['colors']['accent']
             }
@@ -33,6 +32,7 @@ def create_default_config():
             "label_size": "18pt"
         },
         "colors": {
+            "theme": "system",
             "background_rgba": "255, 255, 255, 0.1",
             "accent": "58, 94, 214",
             "border_opacity": 0.7
@@ -47,18 +47,26 @@ def create_default_config():
         'FONT_FAMILY': default_config['font']['family'],
         'FONT_SIZE': default_config['font']['size'],
         'LABEL_FONT_SIZE': default_config['font']['label_size'],
+        'THEME': default_config['colors']['theme'],
         'BACKGROUND_COLOR_RGBA_CODE': default_config['colors']['background_rgba'],
         'ACCENT_COLOR': default_config['colors']['accent']
     }
+
+def get_documents_folder():
+    documents = os.path.join(os.path.expanduser("~"), "Documents")
+    if not os.path.isdir(documents):
+        os.mkdir(documents)
+    return documents
 
 # Загружаем конфигурацию
 config_data = load_config()
 
 # Экспортируем переменные
-DEFAULT_FOLDER = os.path.join(os.path.expanduser("~"), "Documents")
+DEFAULT_FOLDER = get_documents_folder()
 FONT_FAMILY = config_data['FONT_FAMILY']
 FONT_SIZE = config_data['FONT_SIZE']
 LABEL_FONT_SIZE = config_data['LABEL_FONT_SIZE']
+THEME = config_data['THEME']
 BACKGROUND_COLOR_RGBA_CODE = config_data['BACKGROUND_COLOR_RGBA_CODE']
 ACCENT_COLOR = config_data['ACCENT_COLOR']
-BORDER_COLOR = f"{ACCENT_COLOR}, 0.7"
+BORDER_COLOR = f'{ACCENT_COLOR}, 0.7'
