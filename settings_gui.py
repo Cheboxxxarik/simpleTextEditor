@@ -46,8 +46,9 @@ class SettingsGUI(QDialog):
         self.theme_label = QtWidgets.QLabel(self)
         self.theme_label.setText('Тема:')
         self.theme_label.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
-        self.choose_theme = QtWidgets.QComboBox()
-        self.choose_theme.addItems(['системная', 'светлая', 'тёмная'])
+        self.choose_theme = QtWidgets.QComboBox(self)
+        self.choose_theme.addItems(['Системная', 'Светлая', 'Тёмная'])
+        self.get_current_theme()
         self.choose_theme.setStyleSheet(config_stylesheet.COMBO_BOX_STYLESHEET)
         # Настройки акцентного цвета
         self.accent_colour = QtWidgets.QLabel(self)
@@ -92,10 +93,13 @@ class SettingsGUI(QDialog):
         self.button_layout.addWidget(self.reset_settings)
         self.button_layout.addWidget(self.cancel_changes)
 
-    def select_folder(self):
-        folder_name = QFileDialog.getExistingDirectory(self)
-        if folder_name != '':
-            self.default_directory.setText(folder_name)
+    def get_current_theme(self):
+        if config.THEME == 'light':
+            self.choose_theme.setCurrentIndex(1)
+        elif config.THEME == 'dark':
+            self.choose_theme.setCurrentIndex(2)
+        else:
+            self.choose_theme.setCurrentIndex(0)
 
     @staticmethod
     def information_window():

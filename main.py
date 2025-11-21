@@ -2,8 +2,7 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar, 
                              QMenu, QMessageBox, QVBoxLayout, 
                              QFileDialog, QHBoxLayout)
-from PyQt6.QtGui import QIcon, QPalette, QColor
-from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 from os.path import basename, splitext
 import config as config, config_stylesheet
 from settings_gui import SettingsGUI
@@ -17,9 +16,6 @@ class Window(QMainWindow):
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
-        # Сброс системных цветов
-        # palette = QPalette()
-        # central_widget.setPalette(palette)
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя

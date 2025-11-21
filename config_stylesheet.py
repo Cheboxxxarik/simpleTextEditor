@@ -2,97 +2,97 @@ from PyQt6.QtGui import QPalette, QColor
 import config
 
 def theme_applier(app):
-        if config.THEME == 'light':
-            palette = QPalette()
-        
-            # Основные цвета
-            window_color = QColor(240, 240, 240)        # Фон окон
-            window_text_color = QColor(0, 0, 0)         # Текст на фоне окон
-            base_color = QColor(255, 255, 255)          # Фон виджетов ввода
-            alternate_base_color = QColor(248, 248, 248) # Альтернативный фон
-            text_color = QColor(0, 0, 0)                # Основной текст
-            button_color = QColor(240, 240, 240)        # Фон кнопок
-            button_text_color = QColor(0, 0, 0)         # Текст кнопок
-        
-            # Акцентные цвета
-            highlight_color = QColor(0, 120, 215)       # Цвет выделения
-            highlighted_text_color = QColor(255, 255, 255) # Текст выделения
-            link_color = QColor(0, 0, 255)              # Цвет ссылок
-            link_visited_color = QColor(128, 0, 128)    # Цвет посещенных ссылок
-        
-            # Дополнительные цвета
-            tool_tip_base_color = QColor(255, 255, 220) # Фон подсказок
-            tool_tip_text_color = QColor(0, 0, 0)       # Текст подсказок
-            placeholder_color = QColor(128, 128, 128)   # Цвет плейсхолдера
-            bright_text_color = QColor(255, 255, 255)   # Яркий текст
-            mid_color = QColor(160, 160, 160)           # Средний цвет для границ
-            dark_color = QColor(96, 96, 96)             # Темный цвет
-            shadow_color = QColor(80, 80, 80)           # Цвет тени
-            light_color = QColor(255, 255, 255)         # Светлый цвет
-        
-            # === Установка цветов в палитру ===
-        
-            # Активные элементы
-            palette.setColor(QPalette.ColorRole.Window, window_color)
-            palette.setColor(QPalette.ColorRole.WindowText, window_text_color)
-            palette.setColor(QPalette.ColorRole.Base, base_color)
-            palette.setColor(QPalette.ColorRole.AlternateBase, alternate_base_color)
-            palette.setColor(QPalette.ColorRole.Text, text_color)
-            palette.setColor(QPalette.ColorRole.Button, button_color)
-            palette.setColor(QPalette.ColorRole.ButtonText, button_text_color)
-        
-            # Акцентные цвета
-            palette.setColor(QPalette.ColorRole.Highlight, highlight_color)
-            palette.setColor(QPalette.ColorRole.HighlightedText, highlighted_text_color)
-            palette.setColor(QPalette.ColorRole.Link, link_color)
-            palette.setColor(QPalette.ColorRole.LinkVisited, link_visited_color)
-        
-            # Дополнительные цвета
-            palette.setColor(QPalette.ColorRole.ToolTipBase, tool_tip_base_color)
-            palette.setColor(QPalette.ColorRole.ToolTipText, tool_tip_text_color)
-            palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
-            palette.setColor(QPalette.ColorRole.BrightText, bright_text_color)
-        
-            # Цвета для состояний (disabled)
-            palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, QColor(128, 128, 128))
-            palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor(128, 128, 128))
-            palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor(128, 128, 128))
-            palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, QColor(200, 200, 200))
-            palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, QColor(128, 128, 128))
-        
-            # Цвета границ и теней
-            palette.setColor(QPalette.ColorRole.Mid, mid_color)           # Средние элементы
-            palette.setColor(QPalette.ColorRole.Dark, dark_color)         # Темные элементы
-            palette.setColor(QPalette.ColorRole.Shadow, shadow_color)     # Тени
-            palette.setColor(QPalette.ColorRole.Light, light_color) 
-        elif config.THEME == 'dark':
-            dark_palette = QPalette()
-        
-            # Базовые цвета для темной темы
-            dark_color = QColor(45, 45, 45)
-            text_color = QColor(255, 255, 255)
-            highlight_color = QColor(42, 130, 218)
-            placeholder_color = QColor(161, 161, 161)
-        
-            # Настройка палитры
-            dark_palette.setColor(QPalette.ColorRole.Window, dark_color)
-            dark_palette.setColor(QPalette.ColorRole.WindowText, text_color)
-            dark_palette.setColor(QPalette.ColorRole.Base, QColor(25, 25, 25))
-            dark_palette.setColor(QPalette.ColorRole.AlternateBase, dark_color)
-            dark_palette.setColor(QPalette.ColorRole.ToolTipBase, text_color)
-            dark_palette.setColor(QPalette.ColorRole.ToolTipText, text_color)
-            dark_palette.setColor(QPalette.ColorRole.Text, text_color)
-            dark_palette.setColor(QPalette.ColorRole.Button, dark_color)
-            dark_palette.setColor(QPalette.ColorRole.ButtonText, text_color)
-            dark_palette.setColor(QPalette.ColorRole.BrightText, QColor(255, 0, 0))
-            dark_palette.setColor(QPalette.ColorRole.Link, highlight_color)
-            dark_palette.setColor(QPalette.ColorRole.Highlight, highlight_color)
-            dark_palette.setColor(QPalette.ColorRole.HighlightedText, QColor(0, 0, 0))
-            dark_palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
-        
-            app.setPalette(dark_palette)            
-        else:
-            pass
+    if config.THEME == 'light':
+        palette = QPalette()
+    
+        # Основные цвета
+        window_color = QColor(240, 240, 240)        # Фон окон
+        window_text_color = QColor(0, 0, 0)         # Текст на фоне окон
+        base_color = QColor(255, 255, 255)          # Фон виджетов ввода
+        alternate_base_color = QColor(248, 248, 248) # Альтернативный фон
+        text_color = QColor(0, 0, 0)                # Основной текст
+        button_color = QColor(240, 240, 240)        # Фон кнопок
+        button_text_color = QColor(0, 0, 0)         # Текст кнопок
+    
+        # Акцентные цвета
+        highlight_color = QColor(0, 120, 215)       # Цвет выделения
+        highlighted_text_color = QColor(255, 255, 255) # Текст выделения
+        link_color = QColor(0, 0, 255)              # Цвет ссылок
+        link_visited_color = QColor(128, 0, 128)    # Цвет посещенных ссылок
+    
+        # Дополнительные цвета
+        tool_tip_base_color = QColor(255, 255, 220) # Фон подсказок
+        tool_tip_text_color = QColor(0, 0, 0)       # Текст подсказок
+        placeholder_color = QColor(128, 128, 128)   # Цвет плейсхолдера
+        bright_text_color = QColor(255, 255, 255)   # Яркий текст
+        mid_color = QColor(160, 160, 160)           # Средний цвет для границ
+        dark_color = QColor(96, 96, 96)             # Темный цвет
+        shadow_color = QColor(80, 80, 80)           # Цвет тени
+        light_color = QColor(255, 255, 255)         # Светлый цвет
+    
+        # === Установка цветов в палитру ===
+    
+        # Активные элементы
+        palette.setColor(QPalette.ColorRole.Window, window_color)
+        palette.setColor(QPalette.ColorRole.WindowText, window_text_color)
+        palette.setColor(QPalette.ColorRole.Base, base_color)
+        palette.setColor(QPalette.ColorRole.AlternateBase, alternate_base_color)
+        palette.setColor(QPalette.ColorRole.Text, text_color)
+        palette.setColor(QPalette.ColorRole.Button, button_color)
+        palette.setColor(QPalette.ColorRole.ButtonText, button_text_color)
+    
+        # Акцентные цвета
+        palette.setColor(QPalette.ColorRole.Highlight, highlight_color)
+        palette.setColor(QPalette.ColorRole.HighlightedText, highlighted_text_color)
+        palette.setColor(QPalette.ColorRole.Link, link_color)
+        palette.setColor(QPalette.ColorRole.LinkVisited, link_visited_color)
+    
+        # Дополнительные цвета
+        palette.setColor(QPalette.ColorRole.ToolTipBase, tool_tip_base_color)
+        palette.setColor(QPalette.ColorRole.ToolTipText, tool_tip_text_color)
+        palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
+        palette.setColor(QPalette.ColorRole.BrightText, bright_text_color)
+    
+        # Цвета для состояний (disabled)
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, QColor(128, 128, 128))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, QColor(128, 128, 128))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.ButtonText, QColor(128, 128, 128))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, QColor(200, 200, 200))
+        palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, QColor(128, 128, 128))
+    
+        # Цвета границ и теней
+        palette.setColor(QPalette.ColorRole.Mid, mid_color)           # Средние элементы
+        palette.setColor(QPalette.ColorRole.Dark, dark_color)         # Темные элементы
+        palette.setColor(QPalette.ColorRole.Shadow, shadow_color)     # Тени
+        palette.setColor(QPalette.ColorRole.Light, light_color) 
+    elif config.THEME == 'dark':
+        dark_palette = QPalette()
+    
+        # Базовые цвета для темной темы
+        dark_color = QColor(45, 45, 45)
+        text_color = QColor(255, 255, 255)
+        highlight_color = QColor(42, 130, 218)
+        placeholder_color = QColor(161, 161, 161)
+    
+        # Настройка палитры
+        dark_palette.setColor(QPalette.ColorRole.Window, dark_color)
+        dark_palette.setColor(QPalette.ColorRole.WindowText, text_color)
+        dark_palette.setColor(QPalette.ColorRole.Base, QColor(25, 25, 25))
+        dark_palette.setColor(QPalette.ColorRole.AlternateBase, dark_color)
+        dark_palette.setColor(QPalette.ColorRole.ToolTipBase, text_color)
+        dark_palette.setColor(QPalette.ColorRole.ToolTipText, text_color)
+        dark_palette.setColor(QPalette.ColorRole.Text, text_color)
+        dark_palette.setColor(QPalette.ColorRole.Button, dark_color)
+        dark_palette.setColor(QPalette.ColorRole.ButtonText, text_color)
+        dark_palette.setColor(QPalette.ColorRole.BrightText, QColor(255, 0, 0))
+        dark_palette.setColor(QPalette.ColorRole.Link, highlight_color)
+        dark_palette.setColor(QPalette.ColorRole.Highlight, highlight_color)
+        dark_palette.setColor(QPalette.ColorRole.HighlightedText, QColor(0, 0, 0))
+        dark_palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
+    
+        app.setPalette(dark_palette)            
+    else:
+        pass
 
 # Поле для заголовка
 TITLE_EDITOR_STYLESHEET = f'''
