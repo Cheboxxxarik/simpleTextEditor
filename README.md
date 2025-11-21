@@ -25,8 +25,8 @@
 
 |          | Светлая тема | Тёмная тема |
 |----------|--------------|-------------|
-| Windows  | ![Light Preview](screenshots/win/light.png) | ![Dark Preview](screenshots/win/dark.png) |
-| Linux    | ![Light Preview](screenshots/linux/light.png) | ![Dark Preview](screenshots/linux/dark.png) |
+| Windows  | ![Light Preview](screenshots/Windows/light.png) | ![Dark Preview](screenshots/Windows/dark.png) |
+| Linux    | ![Light Preview](screenshots/Linux/light.png) | ![Dark Preview](screenshots/Linux/dark.png) |
 
 ---
 
