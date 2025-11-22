@@ -2,6 +2,7 @@ from PyQt6.QtGui import QPalette, QColor
 import config
 
 def theme_applier(app):
+    # Установка светлой темы
     if config.THEME == 'light':
         palette = QPalette()
     
@@ -64,7 +65,10 @@ def theme_applier(app):
         palette.setColor(QPalette.ColorRole.Mid, mid_color)           # Средние элементы
         palette.setColor(QPalette.ColorRole.Dark, dark_color)         # Темные элементы
         palette.setColor(QPalette.ColorRole.Shadow, shadow_color)     # Тени
-        palette.setColor(QPalette.ColorRole.Light, light_color) 
+        palette.setColor(QPalette.ColorRole.Light, light_color)
+
+        app.setPalette(palette)
+    # Установка тёмной темы
     elif config.THEME == 'dark':
         dark_palette = QPalette()
     
@@ -90,9 +94,10 @@ def theme_applier(app):
         dark_palette.setColor(QPalette.ColorRole.HighlightedText, QColor(0, 0, 0))
         dark_palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
     
-        app.setPalette(dark_palette)            
+        app.setPalette(dark_palette)
+    # Устанока системной темы
     else:
-        pass
+        app.setPalette(app.style().standardPalette())
 
 # Поле для заголовка
 TITLE_EDITOR_STYLESHEET = f'''
