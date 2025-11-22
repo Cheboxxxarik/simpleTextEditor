@@ -253,7 +253,7 @@ COMBO_BOX_STYLESHEET = f'''
     QComboBox {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
+        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
         border: 1px solid rgba(212, 212, 212, 0.8);
         border-radius: 10px;
         padding-top: 5px;
