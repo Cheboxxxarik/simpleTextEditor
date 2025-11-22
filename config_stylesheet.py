@@ -73,10 +73,10 @@ def theme_applier(app):
         dark_palette = QPalette()
     
         # Базовые цвета для темной темы
-        dark_color = QColor(45, 45, 45)
+        dark_color = QColor(30, 30, 30)
         text_color = QColor(255, 255, 255)
-        highlight_color = QColor(42, 130, 218)
-        placeholder_color = QColor(161, 161, 161)
+        highlight_color = QColor(config.ACCENT_COLOR)
+        placeholder_color = QColor(154, 154, 154)
     
         # Настройка палитры
         dark_palette.setColor(QPalette.ColorRole.Window, dark_color)
@@ -95,9 +95,6 @@ def theme_applier(app):
         dark_palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
     
         app.setPalette(dark_palette)
-    # Устанока системной темы
-    else:
-        app.setPalette(app.style().standardPalette())
 
 # Поле для заголовка
 TITLE_EDITOR_STYLESHEET = f'''
@@ -256,7 +253,7 @@ COMBO_BOX_STYLESHEET = f'''
     QComboBox {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
+        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
         border: 1px solid rgba(212, 212, 212, 0.8);
         border-radius: 10px;
         padding-top: 5px;
@@ -275,7 +272,7 @@ COMBO_BOX_STYLESHEET = f'''
     }}
     
     QComboBox:on {{
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}, 0.95);
+        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
         border-radius: 10px;
     }}
     
@@ -293,14 +290,6 @@ COMBO_BOX_STYLESHEET = f'''
         padding: 8px 12px;
         border-radius: 6px;
         margin: 2px;
-    }}
-    
-    QComboBox QAbstractItemView::item:selected {{
-        border: 1px solid rgba({config.BORDER_COLOR});
-    }}
-    
-    QComboBox QAbstractItemView::item:hover {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.2);
     }}
     
     /* Стиль для стрелки */
@@ -331,7 +320,7 @@ COMBO_BOX_STYLESHEET = f'''
     /* Стиль для неактивного состояния */
     QComboBox:disabled {{
         color: rgba(255, 255, 255, 0.4);
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}, 0.5);
+        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
         border: 1px solid rgba(255, 255, 255, 0.2);
     }}
     
