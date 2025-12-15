@@ -1,0 +1,19 @@
+{
+    "window_color": [240, 240, 240],        
+    "window_text_color": [0, 0, 0],    
+    "base_color": [255, 255, 255],          
+    "alternate_base_color": [248, 248, 248], 
+    "text_color": [0, 0, 0],
+    "button_text_color": [0, 0, 0],
+    "highlighted_text_color": [255, 255, 255],
+    "placeholder_color": [128, 128, 128],
+    "bright_text_color": [255, 255, 255],
+    "mid_color": [160, 160, 160],
+    "dark_color": [96, 96, 96],
+    "shadow_color": [80, 80, 80],
+    "light_color": [255, 255, 255],
+    "disabled_window_color": [128, 128, 128],
+    "disabled_text_color": [128, 128, 128],
+    "disabled_highlight_color": [200, 200, 200],
+    "disabled_highlighted_text_color": [128, 128, 128]
+}

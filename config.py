@@ -23,6 +23,9 @@ def load_config():
     except Exception as e:
         QMessageBox(f"Error loading config: {e}")
         return create_default_config()
+    
+def reload_config():
+    return load_config()
 
 def create_default_config():
     default_config = {

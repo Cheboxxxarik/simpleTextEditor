@@ -1,14 +1,12 @@
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QMenuBar, 
-                             QMenu, QMessageBox, QVBoxLayout, 
-                             QFileDialog, QHBoxLayout)
 from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import Qt
 from os.path import basename, splitext
-import config as config, config_stylesheet
+import config, config_stylesheet
 from settings_gui import SettingsGUI
 
 
-class Window(QMainWindow):
+class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setWindowTitle('simpleTextEditor')
@@ -19,11 +17,11 @@ class Window(QMainWindow):
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя
-        self.main_layout = QVBoxLayout(central_widget)
+        self.main_layout = QtWidgets.QVBoxLayout(central_widget)
         self.main_layout.setSpacing(15)
         self.main_layout.setContentsMargins(20, 20, 20, 20) 
         # Создание слоя, на котором будут находиться виджеты для работы с текстом
-        self.text_layout = QVBoxLayout()
+        self.text_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(self.text_layout)
         # Поле для названия текста
         self.text_title = QtWidgets.QLineEdit(self)
@@ -45,24 +43,24 @@ class Window(QMainWindow):
         self.text_layout.addWidget(self.text_title)
         self.text_layout.addWidget(self.text_editor) 
         # Создание слоя для кнопок
-        button_layout = QHBoxLayout()
+        button_layout = QtWidgets.QHBoxLayout()
         button_layout.addStretch()  # Добавляем растягивающее пространство слева
         button_layout.addWidget(self.save_button)
         # Добавление слоя для кнопок
         self.text_layout.addLayout(button_layout)
         # Создание меню-бара
-        self.menu_bar = QMenuBar()
+        self.menu_bar = QtWidgets.QMenuBar()
         self.menu_bar.setStyleSheet('')
         self.menu_bar.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
         self.setMenuBar(self.menu_bar)
         # Создание меню-бара
-        file_menu = QMenu('&Файл', self)
+        file_menu = QtWidgets.QMenu('&Файл', self)
         self.menu_bar.addMenu(file_menu)
         file_menu.addAction('Новый файл', self.new_file)
         file_menu.addAction('Открыть файл', self.open_file)
         file_menu.addAction('Сохранить', self.save_file)
         file_menu.addAction('Сохранить как', self.save_file_as)
-        settings_menu = QMenu('&Настройки', self)
+        settings_menu = QtWidgets.QMenu('&Настройки', self)
         self.menu_bar.addMenu(settings_menu)
         settings_menu.addAction('Настройки', self.open_settings)
 
@@ -72,10 +70,10 @@ class Window(QMainWindow):
     # Уведомление об ошибке
     @staticmethod
     def error_message(text):
-        error = QMessageBox()
+        error = QtWidgets.QMessageBox()
         error.setWindowTitle('Ошибка')
         error.setText(text)
-        error.setIcon(QMessageBox.Icon.Critical)
+        error.setIcon(QtWidgets.QMessageBox.Icon.Critical)
         error.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         error.exec()
 
@@ -95,7 +93,7 @@ class Window(QMainWindow):
     
     # Функция для открытия файла
     def open_file(self):
-        self.file_path = QFileDialog.getOpenFileName(self, "Открыть файл", 
+        self.file_path = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть файл",
                                                 f"{config.DEFAULT_FOLDER}",
                                                 "Текстовые документы(*.txt)")[0]
         try:
@@ -142,7 +140,7 @@ class Window(QMainWindow):
 
     # Функция для сохранения файлов, в директории, выбранной пользователем
     def save_file_as(self):
-        self.file_path = QFileDialog.getSaveFileName(self, 'Сохранить файл', 
+        self.file_path = QtWidgets.QFileDialog.getSaveFileName(self, 'Сохранить файл', 
                                                 f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
                                                 'Текстовые файлы (*.txt)')[0]
         try:
@@ -162,9 +160,10 @@ class Window(QMainWindow):
 # Запуск приложения
 if __name__ == '__main__':
     import sys
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion') 
     app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
+    app.setAttribute(Qt.ApplicationAttribute.AA_DontUseNativeMenuBar)
     config_stylesheet.theme_applier(app)
     window = Window()
     window.show()

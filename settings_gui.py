@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout,
                              QHBoxLayout, QGridLayout, QMessageBox)
 from PyQt6.QtGui import QIcon
 import json, os
-import config as config, config_stylesheet
+import config, config_stylesheet
 
 class SettingsGUI(QDialog):
     def __init__(self):
@@ -180,6 +180,8 @@ class SettingsGUI(QDialog):
         else:
             self.set_background_color.setText(config.BACKGROUND_COLOR_RGBA_CODE)
             self.choose_accent_color.setText(config.ACCENT_COLOR)
+
+        config.reload_config()
         
    
     def reset(self):
