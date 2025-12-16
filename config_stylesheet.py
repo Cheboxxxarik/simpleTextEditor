@@ -1,4 +1,5 @@
 from PyQt6.QtGui import QPalette, QColor
+import json
 import config
 
 def theme_applier(app):
@@ -7,60 +8,33 @@ def theme_applier(app):
 
     palette = QPalette()
 
-    # Установка светлой темы
-    if config.THEME == 'light':
+    with open(f'themes/{config.THEME}.json') as theme:
+        t = json.load(theme)
         # Основные цвета
-        window_color = QColor(240, 240, 240)        # Фон окон
-        window_text_color = QColor(0, 0, 0)         # Текст на фоне окон
-        base_color = QColor(255, 255, 255)          # Фон виджетов ввода
-        alternate_base_color = QColor(248, 248, 248) # Альтернативный фон
-        text_color = QColor(0, 0, 0) # Основной текст
-        button_text_color = QColor(0, 0, 0)         # Текст кнопок
+        window_color = QColor(t.get('window_color'))        # Фон окон
+        window_text_color = QColor(t.get('window_text_color'))         # Текст на фоне окон
+        base_color = QColor(t.get('base_color'))          # Фон виджетов ввода
+        alternate_base_color = QColor(t.get('alternate_base_color')) # Альтернативный фон
+        text_color = QColor(t.get('text_color')) # Основной текст
+        button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
 
         # Акцентные цвета
         highlight_color = QColor(config.ACCENT_COLOR)       # Цвет выделения
-        highlighted_text_color = QColor(255, 255, 255) # Текст выделения
+        highlighted_text_color = QColor(t.get('highlighted_text_color')) # Текст выделения
     
         # Дополнительные цвета
-        placeholder_color = QColor(128, 128, 128)   # Цвет плейсхолдера
-        bright_text_color = QColor(255, 255, 255)   # Яркий текст
-        mid_color = QColor(160, 160, 160)           # Средний цвет для границ
-        dark_color = QColor(96, 96, 96)             # Темный цвет
-        shadow_color = QColor(80, 80, 80)           # Цвет тени
-        light_color = QColor(255, 255, 255)         # Светлый цвет
+        placeholder_color = QColor(t.get('placeholder_color'))   # Цвет плейсхолдера
+        bright_text_color = QColor(t.get('bright_text_color'))   # Яркий текст
+        mid_color = QColor(t.get('mid_color'))           # Средний цвет для границ
+        dark_color = QColor(t.get('dark_color'))             # Темный цвет
+        shadow_color = QColor(t.get('shadow_color'))           # Цвет тени
+        light_color = QColor(t.get('light_color'))         # Светлый цвет
 
         # Цвета для состояний (disabled)
-        disabled_window_color = QColor(128, 128, 128) # Цвет окна
-        disabled_text_color = QColor(128, 128, 128) # Цвет текста
-        disabled_highlight_color = QColor(200, 200, 200) # Цвет выделения
-        disabled_highlighted_text_color = QColor(128, 128, 128) # Цвет выделенного текста
-    # Установка тёмной темы
-    elif config.THEME == 'dark':
-        # Основные цвета
-        window_color = QColor(30, 30, 30)            # Фон окон
-        window_text_color = QColor(220, 220, 220)    # Текст на фоне окон
-        base_color = QColor(25, 25, 25)              # Фон виджетов ввода
-        alternate_base_color = QColor(35, 35, 35)    # Альтернативный фон
-        text_color = QColor(220, 220, 220)           # Основной текст
-        button_text_color = QColor(255, 255, 255)         # Текст кнопок
-        
-        # Акцентные цвета
-        highlight_color = QColor(config.ACCENT_COLOR) # Цвет выделения
-        highlighted_text_color = QColor(255, 255, 255) # Текст выделения
-        
-        # Дополнительные цвета
-        placeholder_color = QColor(154, 154, 154)    # Цвет плейсхолдера
-        bright_text_color = QColor(255, 255, 255)    # Яркий текст
-        mid_color = QColor(80, 80, 80)               # Средний цвет для границ
-        dark_color = QColor(20, 20, 20)              # Темный цвет
-        shadow_color = QColor(15, 15, 15)            # Цвет тени
-        light_color = QColor(60, 60, 60)             # Светлый цвет
-
-        # Цвета для состояний (disabled)
-        disabled_window_color = QColor(100, 100, 100) # Цвет окна
-        disabled_text_color = QColor(100, 100, 100) # Цвет текста
-        disabled_highlight_color = QColor(60, 60, 60) # Цвет выделения
-        disabled_highlighted_text_color = QColor(100, 100, 100) # Цвет выделенного текста
+        disabled_window_color = QColor(t.get('disabled_window_color')) # Цвет окна
+        disabled_text_color = QColor(t.get('disabled_text_color')) # Цвет текста
+        disabled_highlight_color = QColor(t.get('disabled_highlight_color')) # Цвет выделения
+        disabled_highlighted_text_color = QColor(t.get('disabled_highlighted_text_color')) # Цвет выделенного текста
         
     # === Установка цветов в палитру ===
     
