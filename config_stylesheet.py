@@ -15,8 +15,6 @@ def theme_applier(app):
         window_text_color = QColor(t.get('window_text_color'))         # Текст на фоне окон
         text_color = QColor(t.get('text_color')) # Основной текст
         button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
-
-        highlighted_text_color = QColor(t.get('highlighted_text_color')) # Цвет выделенного текста
     
         # Дополнительные цвета
         placeholder_color = QColor(t.get('placeholder_color'))   # Цвет плейсхолдера
