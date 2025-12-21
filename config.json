@@ -5,7 +5,7 @@
         "label_size": "18pt"
     },
     "colors": {
-        "theme": "gruvbox_dark",
+        "theme": "GruvboxDark",
         "accent": "254, 128, 25"
     }
 }
