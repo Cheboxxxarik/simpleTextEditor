@@ -27,7 +27,7 @@ class Window(QtWidgets.QMainWindow):
         self.text_title = QtWidgets.QLineEdit(self)
         self.text_title.setPlaceholderText('Введите название файла.txt')
         self.text_title.setCursorPosition(0)
-        self.text_title.setStyleSheet(config_stylesheet.TITLE_EDITOR_STYLESHEET)
+        self.text_title.setStyleSheet(config_stylesheet.LINE_EDITOR_STYLESHEET)
         self.text_title.setMinimumHeight(50)
         # Поле для ввода текста
         self.text_editor = QtWidgets.QTextEdit(self)

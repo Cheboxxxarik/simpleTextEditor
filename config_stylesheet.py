@@ -13,21 +13,15 @@ def theme_applier(app):
         # Основные цвета
         window_color = QColor(t.get('window_color'))        # Фон окон
         window_text_color = QColor(t.get('window_text_color'))         # Текст на фоне окон
-        base_color = QColor(t.get('base_color'))          # Фон виджетов ввода
-        alternate_base_color = QColor(t.get('alternate_base_color')) # Альтернативный фон
         text_color = QColor(t.get('text_color')) # Основной текст
         button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
 
-        # Акцентные цвета
-        highlight_color = QColor(config.ACCENT_COLOR)       # Цвет выделения
-        highlighted_text_color = QColor(t.get('highlighted_text_color')) # Текст выделения
+        highlighted_text_color = QColor(t.get('highlighted_text_color')) # Цвет выделенного текста
     
         # Дополнительные цвета
         placeholder_color = QColor(t.get('placeholder_color'))   # Цвет плейсхолдера
-        bright_text_color = QColor(t.get('bright_text_color'))   # Яркий текст
         mid_color = QColor(t.get('mid_color'))           # Средний цвет для границ
         dark_color = QColor(t.get('dark_color'))             # Темный цвет
-        shadow_color = QColor(t.get('shadow_color'))           # Цвет тени
         light_color = QColor(t.get('light_color'))         # Светлый цвет
 
         # Цвета для состояний (disabled)
@@ -41,18 +35,11 @@ def theme_applier(app):
     # Активные элементы
     palette.setColor(QPalette.ColorRole.Window, window_color)
     palette.setColor(QPalette.ColorRole.WindowText, window_text_color)
-    palette.setColor(QPalette.ColorRole.Base, base_color)
-    palette.setColor(QPalette.ColorRole.AlternateBase, alternate_base_color)
     palette.setColor(QPalette.ColorRole.Text, text_color)
     palette.setColor(QPalette.ColorRole.ButtonText, button_text_color)
-    
-    # Акцентные цвета
-    palette.setColor(QPalette.ColorRole.Highlight, highlight_color)
-    palette.setColor(QPalette.ColorRole.HighlightedText, highlighted_text_color)
-    
+        
     # Дополнительные цвета
     palette.setColor(QPalette.ColorRole.PlaceholderText, placeholder_color)
-    palette.setColor(QPalette.ColorRole.BrightText, bright_text_color)
         
     # Цвета для состояний (disabled)
     palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.WindowText, disabled_window_color)
@@ -61,29 +48,29 @@ def theme_applier(app):
     palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, disabled_highlighted_text_color)
         
     # Цвета границ и теней
-    palette.setColor(QPalette.ColorRole.Mid, mid_color)           # Средние элементы
-    palette.setColor(QPalette.ColorRole.Dark, dark_color)         # Темные элементы
-    palette.setColor(QPalette.ColorRole.Shadow, shadow_color)     # Тени
-    palette.setColor(QPalette.ColorRole.Light, light_color)
+    palette.setColor(QPalette.ColorRole.Mid, mid_color) # Средние элементы
+    palette.setColor(QPalette.ColorRole.Dark, dark_color) # Темные элементы
+    palette.setColor(QPalette.ColorRole.Light, light_color) # Светлые элементы
     
     app.setPalette(palette)
 
 # Поле для заголовка
-TITLE_EDITOR_STYLESHEET = f'''
+LINE_EDITOR_STYLESHEET = f'''
     QLineEdit {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.LABEL_FONT_SIZE};
-        border: 1px solid rgba(212, 212, 212, 0.8);
+        font-weight: 600;
+        border: 1px solid {config.BORDER_COLOR};
         border-radius: 20px;
         padding: 16px 20px;
-        selection-background-color: rgba({config.ACCENT_COLOR}, 0.3);
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});    
+        selection-background-color: rgb({config.ACCENT_COLOR});
+        background-color: {config.BACKGROUND_COLOR};    
     }}
     QLineEdit:hover {{
-        border: 1px solid rgba({config.BORDER_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
     QLineEdit:focus {{
-        border: 2.25px solid rgba({config.BORDER_COLOR});
+        border: 2.25px solid rgb({config.ACCENT_COLOR});
         padding: 13.75px 18.75px;
     }}
 '''
@@ -92,19 +79,19 @@ SETTINGS_LINE_EDITOR_STYLESHEET = f'''
     QLineEdit {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
-        border: 1px solid rgba(212, 212, 212, 0.8);
+        background-color: {config.BACKGROUND_COLOR};
+        border: 1px solid {config.BORDER_COLOR};
         border-radius: 10px;
         padding-top: 5px;
         padding-left: 5px;
         padding-bottom: 5px;
-        selection-background-color: rgba({config.ACCENT_COLOR}, 0.3);
+        selection-background-color: rgb({config.ACCENT_COLOR});
     }}
     QLineEdit:hover {{
-        border: 1px solid rgba({config.BORDER_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
     QLineEdit:focus {{
-        border: 2.25px solid rgba({config.BORDER_COLOR});
+        border: 2.25px solid rgb({config.ACCENT_COLOR});
         padding: 2.75px;
     }}
 '''
@@ -113,16 +100,17 @@ TEXT_EDITOR_STYLESHEET = f'''
     QTextEdit {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        border: 1px solid rgba(212, 212, 212, 0.7);
+        border: 1px solid {config.BORDER_COLOR};
         border-radius: 20px;
         padding: 16px 20px;
-        background: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
+        background: {config.BACKGROUND_COLOR};
+        selection-background-color: rgb({config.ACCENT_COLOR});
     }}
     QTextEdit:hover {{
-        border: 1px solid rgba({config.BORDER_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
     QTextEdit:focus {{
-        border: 2.25px solid rgba({config.BORDER_COLOR});
+        border: 2.25px solid rgb({config.ACCENT_COLOR});
         padding: 13.75px 18.75px;
     }}
 '''
@@ -131,12 +119,12 @@ LABEL_STYLESHEET = f'''
     QLabel {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
+        background-color: {config.BACKGROUND_COLOR};
         border-radius: 10px;
         padding-top: 5px;
         padding-left: 5px;
         padding-bottom: 5px;
-        selection-background-color: rgba({config.ACCENT_COLOR}, 0.3);
+        selection-background-color: rgb({config.ACCENT_COLOR});
     }}
 '''
 # Меню-бар
@@ -155,12 +143,12 @@ MENU_BAR_STYLESHEET = f'''
     }}
     
     QMenuBar::item:selected {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.15);
+        background-color: {config.BACKGROUND_COLOR};
         color: rgb({config.ACCENT_COLOR});
     }}
     
     QMenuBar::item:pressed {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.25);
+        background-color: {config.BACKGROUND_COLOR};
     }}
 
     QMenu {{
@@ -179,12 +167,8 @@ MENU_BAR_STYLESHEET = f'''
     }}
     
     QMenu::item:selected {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.15);
+        background-color: {config.BACKGROUND_COLOR};
         color: rgb({config.ACCENT_COLOR});
-    }}
-    
-    QMenu::item:pressed {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.25);
     }}
     
     /* Индикаторы (галочки) */
@@ -197,8 +181,8 @@ MENU_BAR_STYLESHEET = f'''
     }}
     
     QMenu::indicator:checked {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.8);
-        border: 1px solid rgba({config.ACCENT_COLOR}, 0.9);
+        background-color: rgb({config.ACCENT_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
 '''
 # Стиль для кнопок
@@ -225,8 +209,8 @@ COMBO_BOX_STYLESHEET = f'''
     QComboBox {{
         font-family: {config.FONT_FAMILY};
         font-size: {config.FONT_SIZE};
-        background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE});
-        border: 1px solid rgba(212, 212, 212, 0.8);
+        background-color: {config.BACKGROUND_COLOR};
+        border: 1px solid {config.BORDER_COLOR};
         border-radius: 10px;
         padding-top: 5px;
         padding-left: 5px;
@@ -236,28 +220,33 @@ COMBO_BOX_STYLESHEET = f'''
     }}
     
     QComboBox:hover {{
-        border: 1px solid rgba({config.BORDER_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
     
     QComboBox:focus {{
-        border: 2px solid rgba({config.BORDER_COLOR});
+        border: 2px solid rgb({config.ACCENT_COLOR});
     }}
     
     QComboBox:on {{
-        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
+        background-color: {config.BACKGROUND_COLOR};
         border-radius: 10px;
     }}
     
     /* Стиль для выпадающего списка */
     QComboBox QAbstractItemView {{
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 10px;
-        padding: 6px;
-        outline: none;
-        selection-background-color: rgba({config.ACCENT_COLOR}, 0.2);
+        background-color: {config.BACKGROUND_COLOR};
+        border-radius: 10px; 
+        padding: 6px; 
+        outline: none; 
+        selection-background-color: rgb({config.ACCENT_COLOR}); 
         selection-color: rgb({config.ACCENT_COLOR});
     }}
     
+    QComboBox QAbstractItemView::item:hover {{
+        background-color: rgba(255, 255, 255, 0.08);
+    }}
+
+
     QComboBox QAbstractItemView::item {{
         padding: 8px 12px;
         border-radius: 6px;
@@ -292,7 +281,7 @@ COMBO_BOX_STYLESHEET = f'''
     /* Стиль для неактивного состояния */
     QComboBox:disabled {{
         color: rgba(255, 255, 255, 0.4);
-        /* background-color: rgba({config.BACKGROUND_COLOR_RGBA_CODE}); */
+        background-color: {config.BACKGROUND_COLOR};
         border: 1px solid rgba(255, 255, 255, 0.2);
     }}
     
@@ -337,17 +326,17 @@ MESSAGE_BOX_STYLESHEET = f'''
     }}
 
     QMessageBox QPushButton:hover {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.8);
+        background-color: rgb({config.ACCENT_COLOR});
         border: 1px solid rgba(255, 255, 255, 0.3);
     }}
 
     QMessageBox QPushButton:pressed {{
-        background-color: rgba({config.ACCENT_COLOR}, 0.6);
+        background-color: rgb({config.ACCENT_COLOR});
         padding: 7px 13px;
     }}
 
     QMessageBox QPushButton:focus {{
-        border: 2px solid rgba({config.BORDER_COLOR});
+        border: 2px solid rgb({config.ACCENT_COLOR});
         outline: none;
     }}
 

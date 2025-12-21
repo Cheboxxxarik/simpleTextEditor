@@ -1,17 +1,18 @@
 {
     "window_color": "#f0f0f0",        
-    "window_text_color": "#000000",    
-    "base_color": "#ffffff",          
-    "alternate_base_color": "#f8f8f8", 
+    "window_text_color": "#000000",
     "text_color": "#000000",
+    "background_color": "#ebebeb",
+
+    "border_color": "#9fa0a0",
     "button_text_color": "#000000",
     "highlighted_text_color": "#ffffff",
     "placeholder_color": "#808080",
-    "bright_text_color": "#ffffff",
+
     "mid_color": "#a0a0a0",
     "dark_color": "#606060",
-    "shadow_color": "#505050",
     "light_color": "#ffffff",
+    
     "disabled_window_color": "#808080",
     "disabled_text_color": "#808080",
     "disabled_highlight_color": "#c8c8c8",
