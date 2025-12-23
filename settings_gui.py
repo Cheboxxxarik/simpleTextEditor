@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, 
                              QHBoxLayout, QGridLayout, QMessageBox)
 from PyQt6.QtGui import QIcon
+from pathlib import Path
 import json, os
 import config, config_stylesheet
 
@@ -40,7 +41,7 @@ class SettingsGUI(QDialog):
         self.theme_label.setText('Тема:')
         self.theme_label.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
         self.choose_theme = QtWidgets.QComboBox(self)
-        self.choose_theme.addItems(['Системная', 'Светлая', 'Тёмная'])
+        self.choose_theme.addItems(self.get_themes())
         self.choose_theme.setCurrentIndex(self.get_current_theme())
         self.choose_theme.setStyleSheet(config_stylesheet.COMBO_BOX_STYLESHEET)
         # Настройки акцентного цвета
@@ -85,12 +86,12 @@ class SettingsGUI(QDialog):
         self.button_layout.addWidget(self.cancel_changes)
 
     def get_current_theme(self):
-        if config.THEME == 'light':
-            return 1
-        elif config.THEME == 'dark':
-            return 2
-        else:
-            return 0
+        index = self.choose_theme.findText(config.THEME)
+        return index if index != -1 else 0
+    
+    @staticmethod
+    def get_themes():
+        return sorted(p.stem for p in Path("themes").glob("*.json"))
 
     @staticmethod
     def information_window():
@@ -121,11 +122,11 @@ class SettingsGUI(QDialog):
         new_accent_color = self.choose_accent_color.text()
 
         if new_theme == 1:
-            new_theme = 'light'
+            new_theme = 'Light'
         elif new_theme == 2:
-            new_theme = 'dark'
+            new_theme = 'Dark'
         else:
-            new_theme = 'system'
+            new_theme = 'System'
 
         if self.check_colors(new_accent_color):
             new_config = {
