@@ -43,7 +43,7 @@ def create_default_config():
             "label_size": "18pt"
         },
         "colors": {
-            "theme": "system",
+            "theme": "Dark",
             "accent": "58, 94, 214",
         }
     }

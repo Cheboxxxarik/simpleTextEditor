@@ -168,7 +168,7 @@ class TextEditor(QtWidgets.QMainWindow):
         self.text_editor.setStyleSheet(config_stylesheet.TEXT_EDITOR_STYLESHEET)
         self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         self.menu_bar.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
-
+        app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
 
     # Функция для открытия окна настроек
     def open_settings(self):
@@ -183,7 +183,6 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion') 
     app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
-    app.setAttribute(Qt.ApplicationAttribute.AA_DontUseNativeMenuBar)
     config_stylesheet.theme_applier(app)
     window = TextEditor()
     window.show()
