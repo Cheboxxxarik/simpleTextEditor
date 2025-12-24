@@ -150,8 +150,7 @@ MENU_BAR_STYLESHEET = f'''
     }}
 
     QMenu {{
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
+        background-color: {config.BACKGROUND_COLOR};
         padding: 6px;
         font-family: {config.FONT_FAMILY};
         font-size: 13px;
@@ -218,7 +217,7 @@ COMBO_BOX_STYLESHEET = f'''
     }}
     
     QComboBox:hover {{
-        border: 1px solid rgb({config.ACCENT_COLOR});
+        border: 2px solid rgb({config.ACCENT_COLOR});
     }}
     
     QComboBox:focus {{
@@ -233,7 +232,6 @@ COMBO_BOX_STYLESHEET = f'''
     /* Стиль для выпадающего списка */
     QComboBox QAbstractItemView {{
         background-color: {config.BACKGROUND_COLOR};
-        border-radius: 10px; 
         padding: 6px; 
         outline: none; 
         selection-background-color: rgb({config.ACCENT_COLOR}); 
@@ -243,7 +241,6 @@ COMBO_BOX_STYLESHEET = f'''
     QComboBox QAbstractItemView::item:hover {{
         background-color: rgba(255, 255, 255, 0.08);
     }}
-
 
     QComboBox QAbstractItemView::item {{
         padding: 8px 12px;
@@ -259,6 +256,7 @@ COMBO_BOX_STYLESHEET = f'''
         border-left: 1px solid rgba(255, 255, 255, 0.2);
         border-top-right-radius: 9px;
         border-bottom-right-radius: 9px;
+        border: none;
     }}
     
     QComboBox::down-arrow {{
@@ -268,12 +266,6 @@ COMBO_BOX_STYLESHEET = f'''
         height: 12px;
         margin-left: 8px;
         margin-right: 8px;
-    }}
-    
-    QComboBox::down-arrow:on {{
-        image: url('resources/up_arrow.svg');
-        border-top: none;
-        border-bottom: 5px solid rgba(255, 255, 255, 0.9);
     }}
     
     /* Стиль для неактивного состояния */
