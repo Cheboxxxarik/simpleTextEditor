@@ -27,14 +27,11 @@ def load_config():
             
         return configuration
     except Exception as e:
-        if configuration['THEME'] != 'system':
-            app = QApplication(sys.argv)
-            QMessageBox.critical(None, "Error", f"Error loading config: {e}")
-            sys.exit(app.exec())
-            return create_default_config()
-        else:
-            return configuration
-    
+        app = QApplication(sys.argv)
+        QMessageBox.critical(None, "Error", f"Error loading config: {e}")
+        sys.exit(app.exec())
+        return create_default_config()
+        
 def reload_config():
     return load_config()
 

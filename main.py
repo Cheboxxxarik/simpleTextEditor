@@ -6,9 +6,9 @@ import config, config_stylesheet
 from settings_gui import SettingsGUI
 
 
-class Window(QtWidgets.QMainWindow):
+class TextEditor(QtWidgets.QMainWindow):
     def __init__(self):
-        super(Window, self).__init__()
+        super(TextEditor, self).__init__()
         self.setWindowTitle('simpleTextEditor')
         self.resize(800, 600)
         # Создание центрального виджета
@@ -150,10 +150,30 @@ class Window(QtWidgets.QMainWindow):
         except FileNotFoundError:
             pass
 
+
+    def apply_settings(self):
+        import importlib
+        import config
+        import config_stylesheet
+
+        # Перезагружаем модули
+        importlib.reload(config)
+        importlib.reload(config_stylesheet)
+
+        # Применяем стили заново
+        app = QtWidgets.QApplication.instance()
+        config_stylesheet.theme_applier(app)
+
+        self.text_title.setStyleSheet(config_stylesheet.LINE_EDITOR_STYLESHEET)
+        self.text_editor.setStyleSheet(config_stylesheet.TEXT_EDITOR_STYLESHEET)
+        self.save_button.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
+        self.menu_bar.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
+
+
     # Функция для открытия окна настроек
-    @staticmethod
-    def open_settings():
+    def open_settings(self):
         settings_window = SettingsGUI()
+        settings_window.settings_applied.connect(self.apply_settings)
         settings_window.exec()
 
 
@@ -165,6 +185,6 @@ if __name__ == '__main__':
     app.setStyleSheet(config_stylesheet.MENU_BAR_STYLESHEET)
     app.setAttribute(Qt.ApplicationAttribute.AA_DontUseNativeMenuBar)
     config_stylesheet.theme_applier(app)
-    window = Window()
+    window = TextEditor()
     window.show()
     sys.exit(app.exec())

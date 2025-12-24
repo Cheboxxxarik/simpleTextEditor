@@ -1,19 +1,20 @@
 from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import (QDialog, QFileDialog, QVBoxLayout, 
-                             QHBoxLayout, QGridLayout, QMessageBox)
 from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import pyqtSignal
 from pathlib import Path
 import json, os
 import config, config_stylesheet
 
-class SettingsGUI(QDialog):
+class SettingsGUI(QtWidgets.QDialog):
+    settings_applied = pyqtSignal()
+
     def __init__(self):
         super(SettingsGUI, self).__init__()
         self.setWindowTitle('Настройки')
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
-        self.main_layout = QVBoxLayout(self)
-        self.grid_layout = QGridLayout()
+        self.main_layout = QtWidgets.QVBoxLayout(self)
+        self.grid_layout = QtWidgets.QGridLayout()
         self.main_layout.addLayout(self.grid_layout)
         # Выбор семейства шрифтов
         self.font_family_settings = QtWidgets.QLabel(self)
@@ -78,7 +79,7 @@ class SettingsGUI(QDialog):
         self.grid_layout.addWidget(self.accent_colour, 4, 0)
         self.grid_layout.addWidget(self.choose_accent_color, 4, 1)
 
-        self.button_layout = QHBoxLayout()
+        self.button_layout = QtWidgets.QHBoxLayout()
         self.main_layout.addLayout(self.button_layout)
         self.button_layout.addStretch()
         self.button_layout.addWidget(self.save_settings)
@@ -94,39 +95,52 @@ class SettingsGUI(QDialog):
         return sorted(p.stem for p in Path("themes").glob("*.json"))
 
     @staticmethod
-    def information_window():
-        info = QMessageBox()
-        info.setWindowTitle('Настройки')
-        info.setIcon(QMessageBox.Icon.Information)
-        info.setText('Для применения изменений перезапустите приложение.')
-        info.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
-        info.exec()
-
-    @staticmethod
     def warning_window(e):
-        info = QMessageBox()
+        info = QtWidgets.QMessageBox()
         info.setWindowTitle('Настройки')
-        info.setIcon(QMessageBox.Icon.Warning)
+        info.setIcon(QtWidgets.QMessageBox.Icon.Warning)
         info.setText(f'Ошибка: {e}')
         info.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         info.exec()
 
     def check_colors(self, new_accent_color):
         return True
+    
+    def apply_styles(self):
+        import importlib
+        import config_stylesheet
+    
+        importlib.reload(config_stylesheet)
+    
+        self.setStyleSheet("")  # сброс кеша Qt
+    
+        for w in self.findChildren(QtWidgets.QWidget):
+            w.setStyleSheet("")
+    
+        # Применяем стили вручную
+        self.font_family_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+        self.font_size_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+        self.label_font_size_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+        self.theme_label.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+        self.accent_colour.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
+    
+        self.select_font_family.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+        self.set_font_size.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+        self.set_label_font_size.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+        self.choose_accent_color.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
+    
+        self.choose_theme.setStyleSheet(config_stylesheet.COMBO_BOX_STYLESHEET)
+    
+        self.save_settings.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
+        self.reset_settings.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
+        self.cancel_changes.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
 
     def save_changes(self):
-        new_theme = self.choose_theme.currentIndex()
+        new_theme = self.choose_theme.currentText()
         new_font_family = self.select_font_family.text()
         new_font_size = self.set_font_size.text()
         new_label_font_size = self.set_label_font_size.text()
         new_accent_color = self.choose_accent_color.text()
-
-        if new_theme == 1:
-            new_theme = 'Light'
-        elif new_theme == 2:
-            new_theme = 'Dark'
-        else:
-            new_theme = 'System'
 
         if self.check_colors(new_accent_color):
             new_config = {
@@ -145,16 +159,18 @@ class SettingsGUI(QDialog):
             os.makedirs(config.CONFIG_DIR, exist_ok=True)
             with open(config.CONFIG_FILE, 'w', encoding='utf-8') as file:
                 json.dump(new_config, file, indent=4)
-
-            SettingsGUI.information_window()
         else:
             self.choose_accent_color.setText(config.ACCENT_COLOR)
 
-        # config.reload_config() 
+        config.reload_config()
+        self.settings_applied.emit()
+        self.apply_styles()
    
     def reset(self):
         config.create_default_config()
-        self.information_window()
+        config.reload_config()
+        self.settings_applied.emit()
+        self.apply_styles()
 
     def cancel(self):
         self.close()
