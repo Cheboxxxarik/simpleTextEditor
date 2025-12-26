@@ -120,7 +120,12 @@ class SettingsGUI(QtWidgets.QDialog):
     # Функция для проверки правильности формата цвета
     def check_colors(self, new_accent_color):
         try:
-            rgb = [int(x.strip()) for x in new_accent_color.split(',')]
+            rgb = []
+            
+            for x in new_accent_color.split(','):
+                cleaned = x.strip()
+                number = int(cleaned)
+                rgb.append(number)
 
             if len(rgb) != 3:
                 raise ValueError("Цвет должен состоять из трёх чисел")
