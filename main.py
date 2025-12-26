@@ -16,8 +16,8 @@ main.py
 from PyQt6 import QtWidgets
 from PyQt6.QtGui import QIcon
 from os.path import basename, splitext
-import config, config_stylesheet
 from settings_gui import SettingsGUI
+import config, config_stylesheet
 
 
 class TextEditor(QtWidgets.QMainWindow):
