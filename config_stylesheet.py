@@ -156,7 +156,7 @@ MENU_BAR_STYLESHEET = f'''
     }}
 
     QMenu {{
-        background-color: {config.BACKGROUND_COLOR};
+        background-color: {config.WINDOW_COLOR};
         padding: 6px;
         font-family: {config.FONT_FAMILY};
         font-size: 13px;
@@ -223,7 +223,7 @@ COMBO_BOX_STYLESHEET = f'''
     }}
     
     QComboBox:hover {{
-        border: 2px solid rgb({config.ACCENT_COLOR});
+        border: 1px solid rgb({config.ACCENT_COLOR});
     }}
     
     QComboBox:focus {{

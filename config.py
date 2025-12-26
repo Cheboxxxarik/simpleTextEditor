@@ -50,6 +50,7 @@ def load_config():
             t = json.load(theme)
             configuration['BACKGROUND_COLOR'] = t.get('background_color', '#ffffff')
             configuration['BORDER_COLOR'] = t.get('border_color', "#9fa0a0")
+            configuration['WINDOW_COLOR'] = t.get('window_color')
         
         return configuration
     except Exception as e:
@@ -104,3 +105,4 @@ THEME = config_data['THEME']
 ACCENT_COLOR = config_data['ACCENT_COLOR']
 BACKGROUND_COLOR = config_data['BACKGROUND_COLOR']
 BORDER_COLOR = config_data['BORDER_COLOR']
+WINDOW_COLOR = config_data['WINDOW_COLOR']
