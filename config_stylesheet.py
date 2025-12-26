@@ -18,6 +18,7 @@ def theme_applier(app):
         t = json.load(theme)
         # Основные цвета
         window_color = QColor(t.get('window_color'))        # Фон окон
+        window_text_color = QColor(t.get('window_text_color'))
         text_color = QColor(t.get('text_color')) # Основной текст
         button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
     
@@ -34,6 +35,7 @@ def theme_applier(app):
     
     # Активные элементы
     palette.setColor(QPalette.ColorRole.Window, window_color)
+    palette.setColor(QPalette.ColorRole.WindowText, window_text_color)
     palette.setColor(QPalette.ColorRole.Text, text_color)
     palette.setColor(QPalette.ColorRole.ButtonText, button_text_color)
         

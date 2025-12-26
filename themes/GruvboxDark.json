@@ -1,8 +1,9 @@
 {
     "window_color": "#1d2021",
 
-    "background_color": "#282828",
+    "window_text_color": "#ebdbb2",
     "text_color": "#ebdbb2",
+    "background_color": "#282828",
 
     "border_color": "#665c54",
 

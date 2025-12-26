@@ -135,7 +135,8 @@ git checkout new_features
 При создании тем вы должны следовать этому шаблону:
 ```json
 {
-    "window_color": "#1e1e1e",        
+    "window_color": "#1e1e1e",
+    "window_text_color": "#dcdcdc",       
 
     "text_color": "#dcdcdc",
     "background_color": "#333637",
@@ -157,6 +158,7 @@ git checkout new_features
 | Параметр | Описание |
 | -------- | -------- |
 | `window_color` | Цвет окна и элементов меню |
+| `window_text_color` | Цвет текста на фоне окон |
 | `text_color` | Цвет текста в полях для ввода |
 | `background_color` | Цвет на фоне текстовых полей |
 | `border_color` | Цвет рамок текстовых полей |

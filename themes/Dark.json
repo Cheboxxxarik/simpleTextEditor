@@ -1,6 +1,7 @@
 {
-    "window_color": "#1e1e1e",        
-
+    "window_color": "#1e1e1e",
+    
+    "window_text_color": "#dcdcdc",
     "text_color": "#dcdcdc",
     "background_color": "#333637",
 
