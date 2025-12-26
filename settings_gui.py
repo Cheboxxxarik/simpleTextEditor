@@ -1,3 +1,13 @@
+"""
+settings_gui.py
+
+Окно настроек приложения.
+Отвечает за:
+- отображение текущих параметров
+- сохранение изменений
+- применение темы в реальном времени
+"""
+
 from PyQt6 import QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import pyqtSignal
@@ -6,6 +16,7 @@ import json, os
 import config, config_stylesheet
 
 class SettingsGUI(QtWidgets.QDialog):
+    # Отслеживание изменений в настройках
     settings_applied = pyqtSignal()
 
     def __init__(self):
@@ -23,7 +34,7 @@ class SettingsGUI(QtWidgets.QDialog):
         self.select_font_family = QtWidgets.QLineEdit(self)
         self.select_font_family.setText(config.FONT_FAMILY)
         self.select_font_family.setStyleSheet(config_stylesheet.SETTINGS_LINE_EDITOR_STYLESHEET)
-        # Выбор размера шрифта
+        # Выбор размера текста
         self.font_size_settings = QtWidgets.QLabel(self)
         self.font_size_settings.setText('Размер шрифта обычного текста:')
         self.font_size_settings.setStyleSheet(config_stylesheet.LABEL_STYLESHEET)
@@ -86,14 +97,17 @@ class SettingsGUI(QtWidgets.QDialog):
         self.button_layout.addWidget(self.reset_settings)
         self.button_layout.addWidget(self.cancel_changes)
 
+    # Функция получения текущей темы
     def get_current_theme(self):
         index = self.choose_theme.findText(config.THEME)
         return index if index != -1 else 0
     
+    # Функция для получения тем
     @staticmethod
     def get_themes():
         return sorted(p.stem for p in Path("themes").glob("*.json"))
 
+    # Уведомление об ошибке
     @staticmethod
     def warning_window(e):
         info = QtWidgets.QMessageBox()
@@ -103,9 +117,25 @@ class SettingsGUI(QtWidgets.QDialog):
         info.setStyleSheet(config_stylesheet.MESSAGE_BOX_STYLESHEET)
         info.exec()
 
+    # Функция для проверки правильности формата цвета
     def check_colors(self, new_accent_color):
-        return True
-    
+        try:
+            rgb = [int(x.strip()) for x in new_accent_color.split(',')]
+
+            if len(rgb) != 3:
+                raise ValueError("Цвет должен состоять из трёх чисел")
+
+            for value in rgb:
+                if not 0 <= value <= 255:
+                    raise ValueError("Значения цвета должны быть от 0 до 255")
+
+            return True  # всё ок
+
+        except Exception as e:
+            self.warning_window(str(e))
+            self.choose_accent_color.setText(config.ACCENT_COLOR)
+            return False
+
     def apply_styles(self):
         import importlib
         import config_stylesheet
@@ -135,13 +165,15 @@ class SettingsGUI(QtWidgets.QDialog):
         self.reset_settings.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
         self.cancel_changes.setStyleSheet(config_stylesheet.BUTTON_STYLESHEET)
 
+    # Функция для сохранения изменений в настройках
     def save_changes(self):
-        new_theme = self.choose_theme.currentText()
-        new_font_family = self.select_font_family.text()
-        new_font_size = self.set_font_size.text()
-        new_label_font_size = self.set_label_font_size.text()
-        new_accent_color = self.choose_accent_color.text()
+        new_theme = self.choose_theme.currentText() # Новая тема
+        new_font_family = self.select_font_family.text() # Новый шрифт
+        new_font_size = self.set_font_size.text() # Новый размер шрифта обычного текста
+        new_label_font_size = self.set_label_font_size.text() # Новый размер шрифта в заголовках
+        new_accent_color = self.choose_accent_color.text() # Новый акцентный цвет
 
+        # Проверка корректности формата цвета 
         if self.check_colors(new_accent_color):
             new_config = {
                 'font': {
@@ -162,19 +194,23 @@ class SettingsGUI(QtWidgets.QDialog):
         else:
             self.choose_accent_color.setText(config.ACCENT_COLOR)
 
+        # Применение настроек
         config.reload_config()
         self.settings_applied.emit()
         self.apply_styles()
-   
+    
+    # Функция для сброса настроек
     def reset(self):
         config.create_default_config()
         config.reload_config()
         self.settings_applied.emit()
         self.apply_styles()
 
+    # Функция для отмены настроек (закрытия окна настроек)
     def cancel(self):
         self.close()
 
+# Запуск приложения
 if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)

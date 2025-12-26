@@ -1,3 +1,18 @@
+"""
+main.py
+
+Главный модуль текстового редактора.
+
+Содержит класс TextEditor — основное окно приложения,
+реализующее:
+- ввод и редактирование текста;
+- создание, открытие и сохранение текстовых файлов;
+- работу с пользовательскими настройками и темами;
+- интерфейс на основе PyQt6.
+
+Запуск модуля инициирует создание и отображение главного окна приложения.
+"""
+
 from PyQt6 import QtWidgets
 from PyQt6.QtGui import QIcon
 from os.path import basename, splitext
@@ -67,6 +82,7 @@ class TextEditor(QtWidgets.QMainWindow):
         self.is_something_was_saved = False
 
     # Уведомление об ошибке
+    # Аргументы функции: text - текст ошибк
     @staticmethod
     def error_message(text):
         error = QtWidgets.QMessageBox()
@@ -149,7 +165,7 @@ class TextEditor(QtWidgets.QMainWindow):
         except FileNotFoundError:
             pass
 
-
+    # Функция для применения новых настроек
     def apply_settings(self):
         import importlib
         import config

@@ -1,11 +1,17 @@
+"""
+config.stylesheet.py
+
+GUI theme configuration.
+
+Содержит цветовые схемы, стили и константы интерфейса
+для использования в PyQt-приложении.
+"""
+
 from PyQt6.QtGui import QPalette, QColor
 import json
 import config
 
 def theme_applier(app):
-    if config.THEME == 'system':
-        return
-
     palette = QPalette()
 
     with open(f'themes/{config.THEME}.json') as theme:

@@ -1,3 +1,33 @@
+"""
+config.py
+
+Модуль конфигурации и темизации приложения.
+
+Этот файл отвечает за:
+- загрузку пользовательских настроек из config.json;
+- инициализацию цветовой схемы и шрифтов;
+- применение цветовой темы (включая поддержку system / dark / custom);
+- централизованное хранение визуальных параметров интерфейса;
+- генерацию QSS-стилей для всех основных виджетов Qt.
+
+Поддерживаемые возможности:
+- автоматическое создание конфигурационного файла при отсутствии;
+- поддержка пользовательских тем (JSON);
+- динамическое определение системной темы (light / dark);
+- единый источник правды для цветов, шрифтов и отступов;
+- совместимость с кастомными темами (Standard, Standard+, Catppuccin и др.).
+
+Структура:
+- load_config()            — загружает конфигурацию и тему
+- create_default_config()  — создаёт config.json по умолчанию
+- theme_applier()          — применяет палитру Qt
+- глобальные QSS-строки    — стили для основных UI-компонентов
+
+Назначение:
+Этот модуль должен использоваться как единый источник настроек внешнего вида.
+
+"""
+
 from PyQt6.QtWidgets import QMessageBox, QApplication
 import json, os, sys
 
@@ -24,7 +54,7 @@ def load_config():
             t = json.load(theme)
             configuration['BACKGROUND_COLOR'] = t.get('background_color', '#ffffff')
             configuration['BORDER_COLOR'] = t.get('border_color', "#9fa0a0")
-            
+        
         return configuration
     except Exception as e:
         app = QApplication(sys.argv)
@@ -76,22 +106,5 @@ FONT_SIZE = config_data['FONT_SIZE']
 LABEL_FONT_SIZE = config_data['LABEL_FONT_SIZE']
 THEME = config_data['THEME']
 ACCENT_COLOR = config_data['ACCENT_COLOR']
-
-if THEME == 'system': 
-    app = QApplication(sys.argv)
-
-    palette = app.palette()
-    color = palette.color(palette.ColorRole.Window)  # основной цвет фона окна
-
-    # Вычисляем "яркость" цвета
-    brightness = (color.red() * 0.299 + color.green() * 0.587 + color.blue() * 0.114)
-
-    if brightness < 128:
-        BACKGROUND_COLOR = '#333637'
-        BORDER_COLOR = "#9fa0a0"
-    else:
-        BACKGROUND_COLOR = '#ebebeb'
-        BORDER_COLOR = "#9fa0a0"
-else:
-    BACKGROUND_COLOR = config_data['BACKGROUND_COLOR']
-    BORDER_COLOR = config_data['BORDER_COLOR']
+BACKGROUND_COLOR = config_data['BACKGROUND_COLOR']
+BORDER_COLOR = config_data['BORDER_COLOR']
