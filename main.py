@@ -82,7 +82,7 @@ class TextEditor(QtWidgets.QMainWindow):
         self.is_something_was_saved = False
 
     # Уведомление об ошибке
-    # Аргументы функции: text - текст ошибк
+    # Аргументы функции: text - текст ошибок
     @staticmethod
     def error_message(text):
         error = QtWidgets.QMessageBox()
