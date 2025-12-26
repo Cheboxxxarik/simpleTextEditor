@@ -18,15 +18,11 @@ def theme_applier(app):
         t = json.load(theme)
         # Основные цвета
         window_color = QColor(t.get('window_color'))        # Фон окон
-        window_text_color = QColor(t.get('window_text_color'))         # Текст на фоне окон
         text_color = QColor(t.get('text_color')) # Основной текст
         button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
     
         # Дополнительные цвета
         placeholder_color = QColor(t.get('placeholder_color'))   # Цвет плейсхолдера
-        mid_color = QColor(t.get('mid_color'))           # Средний цвет для границ
-        dark_color = QColor(t.get('dark_color'))             # Темный цвет
-        light_color = QColor(t.get('light_color'))         # Светлый цвет
 
         # Цвета для состояний (disabled)
         disabled_window_color = QColor(t.get('disabled_window_color')) # Цвет окна
@@ -38,7 +34,6 @@ def theme_applier(app):
     
     # Активные элементы
     palette.setColor(QPalette.ColorRole.Window, window_color)
-    palette.setColor(QPalette.ColorRole.WindowText, window_text_color)
     palette.setColor(QPalette.ColorRole.Text, text_color)
     palette.setColor(QPalette.ColorRole.ButtonText, button_text_color)
         
@@ -50,11 +45,6 @@ def theme_applier(app):
     palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text, disabled_text_color)
     palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Highlight, disabled_highlight_color)
     palette.setColor(QPalette.ColorGroup.Disabled, QPalette.ColorRole.HighlightedText, disabled_highlighted_text_color)
-        
-    # Цвета границ и теней
-    palette.setColor(QPalette.ColorRole.Mid, mid_color) # Средние элементы
-    palette.setColor(QPalette.ColorRole.Dark, dark_color) # Темные элементы
-    palette.setColor(QPalette.ColorRole.Light, light_color) # Светлые элементы
     
     app.setPalette(palette)
 

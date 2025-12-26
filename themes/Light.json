@@ -1,6 +1,6 @@
 {
-    "window_color": "#f0f0f0",        
-    "window_text_color": "#000000",
+    "window_color": "#f0f0f0",
+         
     "text_color": "#000000",
     "background_color": "#ebebeb",
 
@@ -8,10 +8,6 @@
     "button_text_color": "#000000",
     "highlighted_text_color": "#ffffff",
     "placeholder_color": "#808080",
-
-    "mid_color": "#a0a0a0",
-    "dark_color": "#606060",
-    "light_color": "#ffffff",
     
     "disabled_window_color": "#808080",
     "disabled_text_color": "#808080",

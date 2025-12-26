@@ -1,6 +1,5 @@
 {
     "window_color": "#1d2021",
-    "window_text_color": "#ebdbb2",
 
     "background_color": "#282828",
     "text_color": "#ebdbb2",
@@ -11,10 +10,6 @@
     "highlighted_text_color": "#282828",
 
     "placeholder_color": "#928374",
-
-    "mid_color": "#665c54",
-    "dark_color": "#1d2021",
-    "light_color": "#a89984",
 
     "disabled_window_color": "#3c3836",
     "disabled_text_color": "#7c6f64",
