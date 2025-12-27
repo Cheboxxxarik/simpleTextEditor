@@ -84,7 +84,10 @@ def create_default_config():
         'FONT_SIZE': default_config['font']['size'],
         'LABEL_FONT_SIZE': default_config['font']['label_size'],
         'THEME': default_config['colors']['theme'],
-        'ACCENT_COLOR': default_config['colors']['accent']
+        'ACCENT_COLOR': default_config['colors']['accent'],
+        'BACKGROUND_COLOR': '#333637',
+        'BORDER_COLOR': '#9fa0a0',
+        'WINDOW_COLOR': '#1e1e1e'
     }
 
 def get_documents_folder():

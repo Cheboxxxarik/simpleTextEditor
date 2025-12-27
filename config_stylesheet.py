@@ -9,7 +9,7 @@ GUI theme configuration.
 
 from PyQt6.QtGui import QPalette, QColor
 import json
-import config
+import config, resources.resources_rc
 
 def theme_applier(app):
     palette = QPalette()
@@ -231,13 +231,13 @@ COMBO_BOX_STYLESHEET = f'''
     QComboBox QAbstractItemView {{
         background-color: {config.BACKGROUND_COLOR};
         padding: 6px; 
-        outline: none; 
+        outline: none;
         selection-background-color: rgb({config.ACCENT_COLOR}); 
         selection-color: rgb({config.ACCENT_COLOR});
     }}
     
     QComboBox QAbstractItemView::item:hover {{
-        background-color: rgba(255, 255, 255, 0.08);
+        background-color: rgba(255, 255, 255, 0.3);
     }}
 
     QComboBox QAbstractItemView::item {{
@@ -245,7 +245,7 @@ COMBO_BOX_STYLESHEET = f'''
         border-radius: 6px;
         margin: 2px;
     }}
-    
+
     /* Стиль для стрелки */
     QComboBox::drop-down {{
         subcontrol-origin: padding;
@@ -258,14 +258,14 @@ COMBO_BOX_STYLESHEET = f'''
     }}
     
     QComboBox::down-arrow {{
-        image: url('resources/down_arrow.svg');
+        image: url(:/images/down_arrow.svg);
         color: rgba(148, 147, 146, 0.5);
         width: 12px;
         height: 12px;
         margin-left: 8px;
         margin-right: 8px;
     }}
-    
+
     /* Стиль для неактивного состояния */
     QComboBox:disabled {{
         color: rgba(255, 255, 255, 0.4);

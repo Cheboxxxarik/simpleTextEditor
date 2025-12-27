@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1">
+<qresource prefix="/images">
+    <file>down_arrow.svg</file>
+</qresource>
+</RCC>
