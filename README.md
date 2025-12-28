@@ -27,10 +27,10 @@
 |---------------|---------------------------|-----------------------------------------------|
 | Dark          | ![Dark Preview](screenshots/Windows/Dark.jpg)         | ![Dark Preview](screenshots/Linux/Dark.png)   |
 | Dark+         | ![Dark+ Preview](screenshots/Windows/Dark+.jpg)        | ![Dark+ Preview](screenshots/Linux/Dark+.png) |
-| Gruvbox Dark  | ![GruvboxDark Preview](screenshots\Windows\GruvboxDark.jpg)  | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
-| Gruvbox Light | ![GruvboxLight Preview](screenshots\Windows\GruvboxLight.jpg) | ![GruvboxLight Preview](screenshots/Linux/GruvboxLight.png) |
-| Light         | ![Light Preview](screenshots\Windows\Light.jpg) | ![Light](screenshots/Linux/Light.png) |
-| Light+        | ![Light+ Preview](screenshots\Windows\Light+.jpg) | ![Light+ Preview](screenshots/Linux/Light+.png)        |
+| Gruvbox Dark  | ![GruvboxDark Preview](screenshots/Windows/GruvboxDark.jpg)  | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
+| Gruvbox Light | ![GruvboxLight Preview](screenshots/Windows/GruvboxLight.jpg) | ![GruvboxLight Preview](screenshots/Linux/GruvboxLight.png) |
+| Light         | ![Light Preview](screenshots/Windows/Light.jpg) | ![Light](screenshots/Linux/Light.png) |
+| Light+        | ![Light+ Preview](screenshots/Windows/Light+.jpg) | ![Light+ Preview](screenshots/Linux/Light+.png)        |
 ---
 
 ## 🛠 Используемые технологии
