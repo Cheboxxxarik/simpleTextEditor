@@ -23,11 +23,14 @@
 
 ## 🔍 Превью интерфейса
 
-|          | Светлая тема | Тёмная тема |
-|----------|--------------|-------------|
-| Windows  | ![Light Preview](screenshots/Windows/light.jpg) | ![Dark Preview](screenshots/Windows/dark.jpg) |
-| Linux    | ![Light Preview](screenshots/Linux/light.png) | ![Dark Preview](screenshots/Linux/dark.png) |
-
+| Тема          | Windows      | Linux                                         |
+|---------------|--------------|-----------------------------------------------|
+| Dark          |              | ![Dark Preview](screenshots/Linux/Dark.png)   |
+| Dark+         |              | ![Dark+ Preview](screenshots/Linux/Dark+.png) |
+| Gruvbox Dark  |              | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
+| Gruvbox Light |              | ![GruvboxLight Preview](screenshots/Linux/GruvboxLight.png) |
+| Light         |              | ![Light](screenshots/Linux/Light.png) |
+| Light+        |              | ![Light+ Preview](screenshots/Linux/Light+.png)        |
 ---
 
 ## 🛠 Используемые технологии
