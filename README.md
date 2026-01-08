@@ -132,14 +132,11 @@
 ### 🔤 Шрифты, которые отлично подходят
 
 Если хотите поэкспериментировать, попробуйте:
-
-#### Пропорциональные шрифты
 - [**Google Sans**](https://fonts.google.com/specimen/Google+Sans)
 - [**Inter**](https://fonts.google.com/specimen/Inter)
 - [**Roboto**](https://fonts.google.com/specimen/Roboto)
 - [**Noto Sans**](https://fonts.google.com/noto/specimen/Noto+Sans)
-- [**Segoe UI**]()
-#### Моноширинные шрифты 
+- **Segoe UI** (Системный шрифт Windows)
 - [**Adwaita Mono**](https://gitlab.gnome.org/GNOME/adwaita-fonts/-/blob/main/mono/AdwaitaMono-Regular.ttf?ref_type=heads)
 - [**Fira Code**](https://fonts.google.com/specimen/Fira+Code)
 - [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code)
@@ -164,7 +161,7 @@
 | **Лягушка в обмороке**        | `123, 145, 123` | Особенно хорошо сочетается с темой GruvboxDark     |
 | **Фиолетово-синий**           | `124, 92, 255`  | —                                                  |
 | **Средний пурпурный**         | `147, 112, 216` | —                                                  |
-| **Сине-фиолетовый (Крайола)** | `115, 102, 189` | —                                                  |
+| **Сине-фиолетовый Крайола** | `115, 102, 189` | —                                                  |
 | **Серобуромалиновый**         | `115, 81, 132`  | Хорошо сочетается с Catppuccin Mocha               |
 
 > ℹ️ Совет  
