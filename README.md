@@ -25,6 +25,7 @@
 
 | Тема          | Windows                   | Linux                                         |
 |---------------|---------------------------|-----------------------------------------------|
+| Catppuccin Mocha |                        | ![Catppuccin Mocha](screenshots/Linux/CatppuccinMocha.png) |
 | Dark          | ![Dark Preview](screenshots/Windows/Dark.jpg)         | ![Dark Preview](screenshots/Linux/Dark.png)   |
 | Dark+         | ![Dark+ Preview](screenshots/Windows/Dark+.jpg)        | ![Dark+ Preview](screenshots/Linux/Dark+.png) |
 | Gruvbox Dark  | ![GruvboxDark Preview](screenshots/Windows/GruvboxDark.jpg)  | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
@@ -47,7 +48,7 @@
 ### 1-й способ - готовые версии
 
 > ⚠️ В приложениях версий v.1.0.0 и v.1.0.1 отсутствуют функции кастомизации интерфейса.
-1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts).
+1. Установите шрифт [Adwaita Sans](https://gitlab.gnome.org/GNOME/adwaita-fonts/-/blob/main/sans/AdwaitaSans-Regular.ttf?ref_type=heads).
 2. Перейдите на вкладку Releases.
 3. Скачайте .zip-архив для вашей ОС (Windows или Linux) и распакуйте его в любом удобном для Вас месте.
 4. Запустите исполняемый файл программы (simpleTextEditor.exe - для Windows, simpleTextEditor - для Linux).
@@ -119,6 +120,51 @@
    # или
    ./main.sh
    ```
+
+---
+
+## Рекомендации по кастомизации интерфейса
+
+Редактор поддерживает кастомизацию интерфейса, поэтому вы можете подобрать шрифт
+и акцентные цвета, которые будут удобны именно вам.
+Ниже — несколько вариантов, которые хорошо сочетаются с дизайном приложения.
+
+### 🔤 Шрифты, которые отлично подходят
+
+Если хотите поэкспериментировать, попробуйте:
+
+#### Пропорциональные шрифты
+- [**Google Sans**](https://fonts.google.com/specimen/Google+Sans)
+- [**Inter**](https://fonts.google.com/specimen/Inter)
+- [**Roboto**](https://fonts.google.com/specimen/Roboto)
+- [**Noto Sans**](https://fonts.google.com/noto/specimen/Noto+Sans)
+- [**Segoe UI**]()
+#### Моноширинные шрифты 
+- [**Adwaita Mono**](https://gitlab.gnome.org/GNOME/adwaita-fonts/-/blob/main/mono/AdwaitaMono-Regular.ttf?ref_type=heads)
+- [**Fira Code**](https://fonts.google.com/specimen/Fira+Code)
+- [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code)
+- [**JetBrains Mono**](https://www.jetbrains.com/ru-ru/lp/mono/)
+
+Любой из них хорошо смотрится как в светлых, так и в тёмных темах 🙂
+
+### 🎯 Идеи для акцентных цветов
+
+Акцентный цвет влияет на выделение текста и активные элементы интерфейса.
+Вот несколько вариантов, которые выглядят аккуратно и не утомляют глаза:
+
+- Серо-синий - `102, 136, 153`
+- Циан - `7, 118, 120`
+- Можжевельниковый - `109, 146, 146`
+- Средне-зелёный - `104, 157, 106`
+- Оливково-зеленый - `58, 94, 21` 
+- Лягушка в обмороке - `123, 145, 123` (особенно хорошо сочетается с темой GruvboxDark)
+- Фиолетово-синий — `124, 92, 255`
+- Средний пурпурный - `147, 112, 216`
+- Сине-фиолетовый крайола - `115, 102, 189`
+- Аметист - `158, 94, 214`
+
+> ℹ️ Совет  
+> Выбирайте спокойные оттенки — они лучше подходят для длительной работы.
 
 ---
 

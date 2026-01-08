@@ -206,6 +206,11 @@ class SettingsGUI(QtWidgets.QDialog):
     
     # Функция для сброса настроек
     def reset(self):
+        self.select_font_family.setText('Adwaita Sans')
+        self.set_font_size.setText('14pt')
+        self.set_label_font_size.setText('18pt')
+        self.choose_theme.setCurrentText('Dark')
+        self.choose_accent_color.setText('58, 94, 214')
         config.create_default_config()
         config.reload_config()
         self.settings_applied.emit()
