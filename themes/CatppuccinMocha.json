@@ -1,0 +1,23 @@
+{
+    "window_color": "#1e1e2e",
+    "background_color": "#181825",
+
+    "window_text_color": "#cdd6f4",
+    "text_color": "#cdd6f4",
+
+    "border_color": "#45475a",
+
+    "button_text_color": "#cdd6f4",
+    "highlighted_text_color": "#f5e0dc",
+
+    "placeholder_color": "#a6adc8",
+
+    "disabled_window_color": "#313244",
+    "disabled_text_color": "#9399b2",
+    "disabled_highlight_color": "#45475a",
+    "disabled_highlighted_text_color": "#7f849c",
+
+    "cursor_color": "#f5e0dc",
+    "selection_color": "#45475a",
+    "line_highlight_color": "#313244"
+}
