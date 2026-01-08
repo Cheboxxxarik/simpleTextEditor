@@ -25,7 +25,7 @@
 
 | Тема          | Windows                   | Linux                                         |
 |---------------|---------------------------|-----------------------------------------------|
-| Catppuccin Mocha |                        | ![Catppuccin Mocha](screenshots/Linux/CatppuccinMocha.png) |
+| Catppuccin Mocha | ![Catppuccin Mocha Preview](screenshots/Windows/CatppuccinMocha.png) | ![Catppuccin Mocha Preview](screenshots/Linux/CatppuccinMocha.png) |
 | Dark          | ![Dark Preview](screenshots/Windows/Dark.jpg)         | ![Dark Preview](screenshots/Linux/Dark.png)   |
 | Dark+         | ![Dark+ Preview](screenshots/Windows/Dark+.jpg)        | ![Dark+ Preview](screenshots/Linux/Dark+.png) |
 | Gruvbox Dark  | ![GruvboxDark Preview](screenshots/Windows/GruvboxDark.jpg)  | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
