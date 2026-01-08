@@ -142,8 +142,6 @@
 - [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code)
 - [**JetBrains Mono**](https://www.jetbrains.com/ru-ru/lp/mono/)
 
-Любой из них хорошо смотрится как в светлых, так и в тёмных темах 🙂
-
 ### 🎯 Идеи для акцентных цветов
 
 Акцентный цвет влияет на выделение текста и активные элементы интерфейса.
