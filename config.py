@@ -28,7 +28,7 @@ from PyQt6.QtWidgets import QMessageBox, QApplication
 import json, os, sys
 
 CONFIG_DIR = os.path.dirname(__file__)
-CONFIG_FILE = os.path.join('config.json')
+CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.json')
 
 def load_config():
     if not os.path.exists(CONFIG_FILE):
@@ -47,10 +47,11 @@ def load_config():
             theme_name = f'themes/{configuration['THEME']}.json'
 
         with open(theme_name) as theme:
-            t = json.load(theme)
-            configuration['BACKGROUND_COLOR'] = t.get('background_color', '#ffffff')
-            configuration['BORDER_COLOR'] = t.get('border_color', "#9fa0a0")
-            configuration['WINDOW_COLOR'] = t.get('window_color')
+            theme_colors = json.load(theme)
+            configuration['THEME_COLORS'] = theme_colors
+            configuration['BACKGROUND_COLOR'] = theme_colors.get('background_color', '#ffffff')
+            configuration['BORDER_COLOR'] = theme_colors.get('border_color', "#9fa0a0")
+            configuration['WINDOW_COLOR'] = theme_colors.get('window_color')
         
         return configuration
     except Exception as e:
@@ -74,6 +75,25 @@ def create_default_config():
             "accent": "58, 94, 214",
         }
     }
+
+    default_colors = {"window_color": "#1e1e1e",
+    
+                    "window_text_color": "#dcdcdc",
+                    "text_color": "#dcdcdc",
+                    "background_color": "#333637",
+                
+                    "border_color": "#9fa0a0",
+                
+                    "button_text_color": "#ffffff",
+                    "highlighted_text_color": "#ffffff",
+                
+                    "placeholder_color": "#9a9a9a",
+                    
+                    "disabled_window_color": "#646464",
+                    "disabled_text_color": "#646464",
+                    "disabled_highlight_color": "#3c3c3c",
+                    "disabled_highlighted_text_color": "#646464"
+                    }                  
     
     os.makedirs(CONFIG_DIR, exist_ok=True)
     with open(CONFIG_FILE, 'w', encoding='utf-8') as file:
@@ -84,6 +104,7 @@ def create_default_config():
         'FONT_SIZE': default_config['font']['size'],
         'LABEL_FONT_SIZE': default_config['font']['label_size'],
         'THEME': default_config['colors']['theme'],
+        'THEME_COLORS': default_colors,
         'ACCENT_COLOR': default_config['colors']['accent'],
         'BACKGROUND_COLOR': '#333637',
         'BORDER_COLOR': '#9fa0a0',
@@ -105,6 +126,7 @@ FONT_FAMILY = config_data['FONT_FAMILY']
 FONT_SIZE = config_data['FONT_SIZE']
 LABEL_FONT_SIZE = config_data['LABEL_FONT_SIZE']
 THEME = config_data['THEME']
+THEME_COLORS = config_data['THEME_COLORS']
 ACCENT_COLOR = config_data['ACCENT_COLOR']
 BACKGROUND_COLOR = config_data['BACKGROUND_COLOR']
 BORDER_COLOR = config_data['BORDER_COLOR']

@@ -28,6 +28,8 @@ class TextEditor(QtWidgets.QMainWindow):
         # Создание центрального виджета
         central_widget = QtWidgets.QWidget()
         self.setCentralWidget(central_widget)
+        # Путь к текущему файлу
+        self.current_file_path = None
         # Добавление иконки приложения
         self.setWindowIcon(QIcon('simpleTextEditor.ico'))
         # Создание основного слоя
@@ -78,9 +80,6 @@ class TextEditor(QtWidgets.QMainWindow):
         self.menu_bar.addMenu(settings_menu)
         settings_menu.addAction('Настройки', self.open_settings)
 
-        self.is_something_was_opened = False
-        self.is_something_was_saved = False
-
     # Уведомление об ошибке
     # Аргументы функции: text - текст ошибок
     @staticmethod
@@ -103,67 +102,78 @@ class TextEditor(QtWidgets.QMainWindow):
     def new_file(self):
         self.text_title.setCursorPosition(0)
         self.text_editor.setText('')
-        self.is_something_was_opened = False
-        self.is_something_was_saved = False
+        self.text_title.setReadOnly(False)
+        self.current_file_path = None
     
     # Функция для открытия файла
     def open_file(self):
-        self.file_path = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть файл",
+        file_path = QtWidgets.QFileDialog.getOpenFileName(self, "Открыть файл",
                                                 f"{config.DEFAULT_FOLDER}",
                                                 "Текстовые документы(*.txt)")[0]
         try:
-            if self.file_path != '':
-                with open(self.file_path, 'r', encoding='utf-8') as file:
+            if file_path != '':
+                with open(file_path, 'r', encoding='utf-8') as file:
                     text = file.read()
                     self.text_editor.setText(text)
-                self.file_name = basename(self.file_path)
-                self.text_title.setText(self.file_name)
+                file_name = basename(file_path)
+                self.text_title.setText(file_name)
                 self.text_title.setReadOnly(True)
-                self.is_something_was_opened = True
+                self.current_file_path = file_path
         except FileNotFoundError:
             pass
 
     # Функция для проверки названия файла на содержание запрещенных символов
     def check_banned_symbols(self):
-        banned_symbols = set('@/*#!$%^?\\[]-_+=;`~,<>\'"|')
+        banned_symbols = set('@/*#!$%^?\\[]+=;`~,<>\'"|')
         if set(self.text_title.text()) & banned_symbols:
             self.error_message('В названии содержатся запрещённые символы')
+            return False
+        return True
 
     # Функция для сохранения файла
     def save_file(self):
-        self.check_banned_symbols()
-        if self.is_something_was_opened:
-            self.write_text(file_path=self.file_path,mode='w')
+        # Проверка на запрещённые символы
+        if not self.check_banned_symbols():
+            return
+        
+        # Если файл уже открыт/сохранён — перезаписываем по существующему пути
+        if self.current_file_path:
+            self.write_text(file_path=self.current_file_path, mode='w')
         else:
-            title = self.text_title.text()
+            # Новый файл — нужно получить имя и создать
+            title = self.text_title.text().strip()
+            
+            if not title:
+                self.error_message('Пожалуйста, назовите Ваш текстовый документ')
+                return
+            
+            # Добавляем расширение, если его нет
             if splitext(title)[1] != '.txt':
                 title = f'{title}.txt'
+                        
             try:
-                if self.is_something_was_saved:
-                    self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
-                                    mode='w')
-                else:
-                    if title != '':
-                        self.write_text(file_path=f'{config.DEFAULT_FOLDER}/{title}',
-                                        mode='x')
-                        self.is_something_was_saved = True
-                        self.text_title.setReadOnly(True)
-                    else:
-                        self.error_message('Пожалуйста, назовите Ваш текстовый документ')
+                self.save_file_as()
             except FileExistsError:
                 self.error_message('Файл с таким именем уже существует. Пожалуйста, переименуйте файл')
 
     # Функция для сохранения файлов, в директории, выбранной пользователем
     def save_file_as(self):
-        self.file_path = QtWidgets.QFileDialog.getSaveFileName(self, 'Сохранить файл', 
-                                                f'{config.DEFAULT_FOLDER}/{self.text_title.text()}',
+        default_name = self.text_title.text() if self.text_title.text() else 'untitled.txt'
+        file_path = QtWidgets.QFileDialog.getSaveFileName(self, 'Сохранить файл', 
+                                                f'{config.DEFAULT_FOLDER}/{default_name}',
                                                 'Текстовые файлы (*.txt)')[0]
+        
+        # Если пользователь отменил диалог
+        if not file_path:
+            return
+        
         try:
-            self.write_text(file_path=self.file_path, mode='w')
-            self.is_something_was_opened = True
-            self.is_something_was_saved = True
-        except FileNotFoundError:
-            pass
+            self.write_text(file_path=file_path, mode='w')
+            self.current_file_path = file_path
+            self.text_title.setText(basename(file_path))
+            self.text_title.setReadOnly(True)
+        except Exception as e:
+            self.error_message(f'Ошибка при сохранении: {e}')
 
     # Функция для применения новых настроек
     def apply_settings(self):

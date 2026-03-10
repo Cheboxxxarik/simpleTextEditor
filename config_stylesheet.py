@@ -13,24 +13,22 @@ import config, resources.resources_rc
 
 def theme_applier(app):
     palette = QPalette()
-
-    with open(f'themes/{config.THEME}.json') as theme:
-        t = json.load(theme)
-        # Основные цвета
-        window_color = QColor(t.get('window_color'))        # Фон окон
-        window_text_color = QColor(t.get('window_text_color'))
-        text_color = QColor(t.get('text_color')) # Основной текст
-        button_text_color = QColor(t.get('button_text_color'))         # Текст кнопок
     
-        # Дополнительные цвета
-        placeholder_color = QColor(t.get('placeholder_color'))   # Цвет плейсхолдера
+    theme_colors = config.THEME_COLORS
+    # Основные цвета
+    window_color = QColor(theme_colors.get('window_color'))        # Фон окон
+    window_text_color = QColor(theme_colors.get('window_text_color'))
+    text_color = QColor(theme_colors.get('text_color')) # Основной текст
+    button_text_color = QColor(theme_colors.get('button_text_color'))         # Текст кнопок
 
-        # Цвета для состояний (disabled)
-        disabled_window_color = QColor(t.get('disabled_window_color')) # Цвет окна
-        disabled_text_color = QColor(t.get('disabled_text_color')) # Цвет текста
-        disabled_highlight_color = QColor(t.get('disabled_highlight_color')) # Цвет выделения
-        disabled_highlighted_text_color = QColor(t.get('disabled_highlighted_text_color')) # Цвет выделенного текста
-        
+    # Дополнительные цвета
+    placeholder_color = QColor(theme_colors.get('placeholder_color'))   # Цвет плейсхолдера
+    # Цвета для состояний (disabled)
+    disabled_window_color = QColor(theme_colors.get('disabled_window_color')) # Цвет окна
+    disabled_text_color = QColor(theme_colors.get('disabled_text_color')) # Цвет текста
+    disabled_highlight_color = QColor(theme_colors.get('disabled_highlight_color')) # Цвет выделения
+    disabled_highlighted_text_color = QColor(theme_colors.get('disabled_highlighted_text_color')) # Цвет выделенного текста
+    
     # === Установка цветов в палитру ===
     
     # Активные элементы
