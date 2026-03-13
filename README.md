@@ -139,7 +139,7 @@
 - **Segoe UI** (Системный шрифт Windows)
 - [**Adwaita Mono**](https://gitlab.gnome.org/GNOME/adwaita-fonts/-/blob/main/mono/AdwaitaMono-Regular.ttf?ref_type=heads)
 - [**Fira Code**](https://fonts.google.com/specimen/Fira+Code)
-- [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code) (Кириллица не поддерживается)
+- [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code) (Не поддерживает кириллицу)
 - [**JetBrains Mono**](https://www.jetbrains.com/ru-ru/lp/mono/)
 
 Эти и многие другие шрифты вы можете найти на [**Google Fonts**](https://fonts.google.com/).
