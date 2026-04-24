@@ -23,16 +23,8 @@
 
 ## 🔍 Превью интерфейса
 
-| Тема          | Windows                   | Linux                                         |
-|---------------|---------------------------|-----------------------------------------------|
-| Catppuccin Mocha | ![Catppuccin Mocha Preview](screenshots/Windows/CatppuccinMocha.png) | ![Catppuccin Mocha Preview](screenshots/Linux/CatppuccinMocha.png) |
-| Dark          | ![Dark Preview](screenshots/Windows/Dark.jpg)         | ![Dark Preview](screenshots/Linux/Dark.png)   |
-| Dark+         | ![Dark+ Preview](screenshots/Windows/Dark+.jpg)        | ![Dark+ Preview](screenshots/Linux/Dark+.png) |
-| Gruvbox Dark  | ![GruvboxDark Preview](screenshots/Windows/GruvboxDark.jpg)  | ![GruvboxDark Preview](screenshots/Linux/GruvboxDark.png) |
-| Gruvbox Light | ![GruvboxLight Preview](screenshots/Windows/GruvboxLight.jpg) | ![GruvboxLight Preview](screenshots/Linux/GruvboxLight.png) |
-| Light         | ![Light Preview](screenshots/Windows/Light.jpg) | ![Light](screenshots/Linux/Light.png) |
-| Light+        | ![Light+ Preview](screenshots/Windows/Light+.jpg) | ![Light+ Preview](screenshots/Linux/Light+.png)        |
----
+![Dark Theme](screenshots/Dark.png)
+![Light Theme](screenshots/Light.png)
 
 ## 🛠 Используемые технологии
 
@@ -132,14 +124,12 @@
 ### 🔤 Шрифты, которые отлично подходят
 
 Если хотите поэкспериментировать, попробуйте:
-- [**Google Sans**](https://fonts.google.com/specimen/Google+Sans)
 - [**Inter**](https://fonts.google.com/specimen/Inter)
 - [**Roboto**](https://fonts.google.com/specimen/Roboto)
 - [**Noto Sans**](https://fonts.google.com/noto/specimen/Noto+Sans)
 - **Segoe UI** (Системный шрифт Windows)
 - [**Adwaita Mono**](https://gitlab.gnome.org/GNOME/adwaita-fonts/-/blob/main/mono/AdwaitaMono-Regular.ttf?ref_type=heads)
 - [**Fira Code**](https://fonts.google.com/specimen/Fira+Code)
-- [**Google Sans Code**](https://fonts.google.com/specimen/Google+Sans+Code) (Не поддерживает кириллицу)
 - [**JetBrains Mono**](https://www.jetbrains.com/ru-ru/lp/mono/)
 
 Эти и многие другие шрифты вы можете найти на [**Google Fonts**](https://fonts.google.com/).
